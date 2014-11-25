@@ -1,0 +1,23 @@
+__author__ = "Johannes Alneberg"
+__license__ = "MIT"
+
+import os
+
+workflow_dir = "/Users/johannesalneberg/repos/BLUEPRINT_pipeline/"
+
+include: os.path.join(workflow_dir, "rules/mapping/bowtie2.rules")
+include: os.path.join(workflow_dir, "rules/annotation/from_mapping.rules")
+include: os.path.join(workflow_dir, "rules/annotation/prokka.rules")
+include: os.path.join(workflow_dir, "rules/phylogeny/phylosift.rules")
+include: os.path.join(workflow_dir, "rules/metaassembly/ray.rules")
+
+rule all:
+    input:
+        expand("annotation/from_mapping/assembly_v1/{samples}/{count_files}",
+            samples = ["S999"],
+            count_files = [ "counts_per_cog.csv",
+                            "counts_per_tigrfam.csv",
+                            "counts_per_pfam.csv",
+                            "counts_per_ec.csv"]),
+        expand("phylogeny/from_mapping/assembly_v1/{samples}/counts_per_phylogeny.csv",
+            samples = ["S999"])
