@@ -1,0 +1,17 @@
+
+rule annotate_with_mapping:
+    input:
+        "mapping/bowtie2/{reference}/{sample}/{sample}.bam",
+        "annotation/reference/{reference}.gff"
+    output:
+        "annotation/from_mapping/{reference}/{sample}/annotation.gff"
+    shell:
+        "touch {output}"
+rule calc_annotation_counts:
+    input:
+        "annotation/from_mapping/{reference}/{sample}/annotation.gff"
+    output:
+        "annotation/from_mapping/{reference}/{sample}/counts_per_cog.csv",
+        "annotation/from_mapping/{reference}/{sample}/counts_per_tigrfam.csv",
+        "annotation/from_mapping/{reference}/{sample}/counts_per_pfam.csv",
+        "annotation/from_mapping/{reference}/{sample}/counts_per_ec.csv"

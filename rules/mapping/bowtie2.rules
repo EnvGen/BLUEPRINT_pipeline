@@ -1,0 +1,21 @@
+rule bowtie2_index:
+    input:
+        "references/{reference}.fna.gz"
+    output:
+        expand("mapping/bowtie2/{{reference}}.{index}.bt2", index=range(1,5)),
+        expand("mapping/bowtie2/{{reference}}.rev.{index}.bt2", index=range(1,3))
+    params:
+        prefix="mapping/bowtie2/{reference}"
+    shell:
+        "touch {output}"
+
+rule bowtie2_map:
+    input:
+        "samples/{sample}.fastq",
+        expand("mapping/bowtie2/{{reference}}.{index}.bt2", index=range(1,5)),
+        expand("mapping/bowtie2/{{reference}}.rev.{index}.bt2", index=range(1,3))
+        #references = rules.bowtie2_index.output
+    output:
+        "mapping/bowtie2/{reference}/{sample}/{sample}.bam"
+    shell:
+        "touch {output}"

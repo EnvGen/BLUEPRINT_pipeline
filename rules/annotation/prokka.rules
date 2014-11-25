@@ -1,0 +1,8 @@
+
+rule annotate_reference:
+    input:
+        "references/{reference}.fna.gz"
+    output:
+        "annotation/reference/{reference}.gff"
+    shell:
+        "touch {output}" 

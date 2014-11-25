@@ -1,0 +1,7 @@
+samples = ["S996", "S997"]
+
+rule assemble:
+    input:
+        expand("samples/{samples}.fastq", samples=samples)
+    output:
+        "references/{reference}.fna.gz"

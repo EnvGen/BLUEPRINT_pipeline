@@ -1,0 +1,19 @@
+rule assign_reference_phylogeny:
+    input:
+        "references/{reference}.fna.gz"
+    output:
+        "phylogeny/reference/{reference}/phylosift.csv"
+
+rule phylogeny_from_mapping:
+    input:
+        "mapping/bowtie2/{reference}/{sample}/{sample}.bam",
+        "phylogeny/reference/{reference}/phylosift.csv"
+    output:
+        "phylogeny/from_mapping/{reference}/{sample}/phylosift.csv"
+
+rule calc_phylogeny_counts:
+    input:
+        "phylogeny/from_mapping/{reference}/{sample}/phylosift.csv"
+    output:
+        "phylogeny/from_mapping/{reference}/{sample}/counts_per_phylogeny.csv"
+    
