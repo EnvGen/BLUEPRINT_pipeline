@@ -1,3 +1,6 @@
+# Snakemake
+.snakemake/*
+
 # vim
 *.swp
 
