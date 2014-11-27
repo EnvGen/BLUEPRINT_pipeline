@@ -7,7 +7,7 @@ rule bowtie2_index:
     params:
         prefix="mapping/bowtie2/{reference}"
     shell:
-        "touch {output}"
+        "bowtie2-build {input} {params.prefix}"
 
 rule bowtie2_map:
     input:
@@ -17,5 +17,14 @@ rule bowtie2_map:
         #references = rules.bowtie2_index.output
     output:
         "mapping/bowtie2/{reference}/{sample}/{sample}.bam"
+    params:
+        ref_idx_base="mapping/bowtie2/{reference}"
     shell:
-        "touch {output}"
+        "{config[bowtie2_rules][load_env]}
+        bowtie2 
+        -x {params.ref_idx_base} \
+        -p {threads} {params.read_input_str} \
+        -S {params.sam} \
+        2> {log} && \
+        samtools view -Sbh {params.sam} > {output} && \
+        rm {params.sam}"

@@ -2,8 +2,9 @@ __author__ = "Johannes Alneberg"
 __license__ = "MIT"
 
 import os
+file_path = os.path.realpath(__file__)
+workflow_dir = os.path.join(file_path, '..')
 
-workflow_dir = "/Users/johannesalneberg/repos/BLUEPRINT_pipeline/"
 
 include: os.path.join(workflow_dir, "rules/mapping/bowtie2.rules")
 include: os.path.join(workflow_dir, "rules/annotation/from_mapping.rules")
@@ -11,7 +12,7 @@ include: os.path.join(workflow_dir, "rules/annotation/prokka.rules")
 include: os.path.join(workflow_dir, "rules/phylogeny/phylosift.rules")
 include: os.path.join(workflow_dir, "rules/metaassembly/ray.rules")
 
-rule all:
+rule all_from_mapping:
     input:
         expand("annotation/from_mapping/assembly_v1/{samples}/{count_files}",
             samples = ["S999"],
@@ -21,3 +22,4 @@ rule all:
                             "counts_per_ec.csv"]),
         expand("phylogeny/from_mapping/assembly_v1/{samples}/counts_per_phylogeny.csv",
             samples = ["S999"])
+
