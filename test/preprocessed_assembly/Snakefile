@@ -1,0 +1,37 @@
+__author__ = "Johannes Alneberg"
+__license__ = "MIT"
+
+WORKFLOW_DIR = "/home/alneberg/repos/BLUEPRINT_pipeline/"
+
+if 'travis' in config:
+    print("Go travis!")
+    configfile: "travis_config.json"
+else:
+    print('No travis!')
+    configfile: "config.json"
+
+import os
+
+include: WORKFLOW_DIR + "rules/mapping/bowtie2.rules"
+include: os.path.join(WORKFLOW_DIR, "rules/annotation/from_mapping.rules")
+include: os.path.join(WORKFLOW_DIR, "rules/annotation/prokka.rules")
+include: os.path.join(WORKFLOW_DIR, "rules/phylogeny/phylosift.rules")
+
+rule test_bowtie:
+    input:
+       expand("mapping/bowtie2/{assembly}/{samples}/{samples}.bam", 
+            samples = ["120322"],
+            assembly = ["assembly_v1"])
+
+rule all_from_mapping:
+    input:
+        expand("annotation/from_mapping/{assembly}/{samples}/{count_files}",
+            samples = ["120322_R1"],
+            count_files = [ "counts_per_cog.csv",
+                            "counts_per_tigrfam.csv",
+                            "counts_per_pfam.csv",
+                            "counts_per_ec.csv"],
+            assembly = "assembly_v1"),
+        expand("phylogeny/from_mapping/assembly_v1/{samples}/counts_per_phylogeny.csv",
+            samples = ["120322_R1"])
+
