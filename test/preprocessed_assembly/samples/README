@@ -1,0 +1,11 @@
+python extract_reads_per_contig.py contig-0 contig-1 contig-1000000 contig-2000000 contig-3000000
+cat *.1.fastq > 120322_R1.fastq
+cat *.2.fastq > 120322_R2.fastq
+rm *.1.fastq
+rm *.2.fastq
+python extract_reads_per_contig.py contig-0 contig-1 contig-1000000 contig-2000000 contig-3000000 --bamfile all_0507bt-smds.bam
+cat *.1.fastq > 120507_R1.fastq
+cat *.2.fastq > 120507_R2.fastq
+rm *.1.fastq
+rm *.2.fastq
+
