@@ -1,8 +1,6 @@
 language: python
 python:
     - "3.4"
-virtualenv:
-    system_site_packages: true
 before_install:
    #Uses miniconda installation of scientific python packages instead of building from source
    #or using old versions supplied by apt-get. Source: https://gist.github.com/dan-blanchard/7045057
