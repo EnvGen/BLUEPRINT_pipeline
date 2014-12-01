@@ -4,10 +4,8 @@ __license__ = "MIT"
 WORKFLOW_DIR = "/home/alneberg/repos/BLUEPRINT_pipeline/"
 
 if 'travis' in config:
-    print("Go travis!")
     configfile: "travis_config.json"
 else:
-    print('No travis!')
     configfile: "config.json"
 
 import os
