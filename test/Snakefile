@@ -1,25 +1,46 @@
 __author__ = "Johannes Alneberg"
 __license__ = "MIT"
 
+WORKFLOW_DIR = "/home/alneberg/repos/BLUEPRINT_pipeline/"
+
+if 'travis' in config:
+    configfile: "travis_config.json"
+else:
+    configfile: "config.json"
+
 import os
-file_path = os.path.realpath(__file__)
-workflow_dir = os.path.join(file_path, '..')
+
+include: WORKFLOW_DIR + "rules/mapping/bowtie2.rules"
+include: WORKFLOW_DIR + "rules/mapping/samfiles.rules"
+include: WORKFLOW_DIR + "rules/annotation/from_mapping.rules"
+include: os.path.join(WORKFLOW_DIR, "rules/annotation/prokka.rules")
+include: os.path.join(WORKFLOW_DIR, "rules/phylogeny/phylosift.rules")
+
+# Make sure the scripts are available in working dir
+for script in os.listdir(WORKFLOW_DIR + "scripts"):
+    if not os.path.exists(os.path.basename(script)):
+        print("Creating symlink to {0}".format(script))
+        os.symlink(WORKFLOW_DIR + "scripts/" + script, script)
+
+rule prepare:
+    params:
+        testdir = os.getcwd()
+    shell:
+        """mkdir -p annotation/reference references samples mapping quantification
+           ln -s {params.testdir}/test_data/references/assembly_v1.fna references/
+           ln -s {params.testdir}/test_data/samples/*.fastq samples/
+           ln -s {params.testdir}/test_data/annotation/reference/assembly_v1.gff annotation/reference/"""
 
 
-include: os.path.join(workflow_dir, "rules/mapping/bowtie2.rules")
-include: os.path.join(workflow_dir, "rules/annotation/from_mapping.rules")
-include: os.path.join(workflow_dir, "rules/annotation/prokka.rules")
-include: os.path.join(workflow_dir, "rules/phylogeny/phylosift.rules")
-include: os.path.join(workflow_dir, "rules/metaassembly/ray.rules")
 
 rule all_from_mapping:
     input:
-        expand("annotation/from_mapping/assembly_v1/{samples}/{count_files}",
-            samples = ["S999"],
-            count_files = [ "counts_per_cog.csv",
-                            "counts_per_tigrfam.csv",
-                            "counts_per_pfam.csv",
-                            "counts_per_ec.csv"]),
-        expand("phylogeny/from_mapping/assembly_v1/{samples}/counts_per_phylogeny.csv",
-            samples = ["S999"])
+        expand("quantification/{assembly}/orf/{samples}/{samples}.rpkm",
+            samples = ["120322", "120507"],
+            assembly = "assembly_v1"),
 
+
+rule clean_up:
+    shell:
+        """rm -r annotation references samples rpkm_for_orfs.py mapping
+           rm -rf quantification"""
