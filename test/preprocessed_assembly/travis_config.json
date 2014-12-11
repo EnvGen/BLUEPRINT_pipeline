@@ -1,8 +1,0 @@
-{
-    "bowtie2_rules": {
-        "load_env": ""
-    },
-    "annotate_reference": {
-        "load_env": ""
-    }
-}
