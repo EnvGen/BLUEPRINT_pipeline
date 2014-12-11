@@ -1,26 +1,22 @@
 __author__ = "Johannes Alneberg"
 __license__ = "MIT"
 
-WORKFLOW_DIR = "/home/alneberg/repos/BLUEPRINT_pipeline/"
+WORKFLOW_DIR = os.path.join(os.getcwd(), "..")
 
-if 'travis' in config:
-    configfile: "travis_config.json"
-else:
-    configfile: "config.json"
+configfile: "config.json"
 
 import os
 
-include: WORKFLOW_DIR + "rules/mapping/bowtie2.rules"
-include: WORKFLOW_DIR + "rules/mapping/samfiles.rules"
-include: WORKFLOW_DIR + "rules/annotation/from_mapping.rules"
-include: os.path.join(WORKFLOW_DIR, "rules/annotation/prokka.rules")
-include: os.path.join(WORKFLOW_DIR, "rules/phylogeny/phylosift.rules")
+include: os.path.join(WORKFLOW_DIR, "rules/mapping/bowtie2.rules")
+include: os.path.join(WORKFLOW_DIR, "rules/mapping/samfiles.rules")
+include: os.path.join(WORKFLOW_DIR, "rules/quantification/rpkm.rules")
 
 # Make sure the scripts are available in working dir
-for script in os.listdir(WORKFLOW_DIR + "scripts"):
+script_dir = os.path.join(WORKFLOW_DIR, "scripts")
+for script in os.listdir(script_dir):
     if not os.path.exists(os.path.basename(script)):
         print("Creating symlink to {0}".format(script))
-        os.symlink(WORKFLOW_DIR + "scripts/" + script, script)
+        os.symlink(os.path.join(script_dir, script), script)
 
 rule prepare:
     params:
@@ -31,14 +27,11 @@ rule prepare:
            ln -s {params.testdir}/test_data/samples/*.fastq samples/
            ln -s {params.testdir}/test_data/annotation/reference/assembly_v1.gff annotation/reference/"""
 
-
-
 rule all_from_mapping:
     input:
         expand("quantification/{assembly}/orf/{samples}/{samples}.rpkm",
             samples = ["120322", "120507"],
             assembly = "assembly_v1"),
-
 
 rule clean_up:
     shell:
