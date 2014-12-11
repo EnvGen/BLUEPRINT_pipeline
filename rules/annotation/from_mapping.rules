@@ -1,17 +1,16 @@
 
-rule annotate_with_mapping:
+rule rpkm_per_orf:
     input:
-        "mapping/bowtie2/{reference}/{sample}/{sample}.bam",
-        "annotation/reference/{reference}.gff"
+        bam = "mapping/bowtie2/{reference}/{sample}/{sample}-s.bam",
+        gff = "annotation/reference/{reference}.gff",
+        fastq = expand("samples/{{sample}}_R{mate}.fastq", mate=[1,2])
     output:
-        "annotation/from_mapping/{reference}/{sample}/annotation.gff"
+        protected("quantification/{reference}/orf/{sample}/{sample}.rpkm")
+    params:
+        load_env = config["from_mapping"]["load_env"],
+        python2 = config["python2"]
     shell:
-        "touch {output}"
-rule calc_annotation_counts:
-    input:
-        "annotation/from_mapping/{reference}/{sample}/annotation.gff"
-    output:
-        "annotation/from_mapping/{reference}/{sample}/counts_per_cog.csv",
-        "annotation/from_mapping/{reference}/{sample}/counts_per_tigrfam.csv",
-        "annotation/from_mapping/{reference}/{sample}/counts_per_pfam.csv",
-        "annotation/from_mapping/{reference}/{sample}/counts_per_ec.csv"
+        """{params.load_env} 
+        {params.python2} rpkm_for_orfs.py {input.bam} {input.gff} \
+        `grep -c "^@" <(cat {input.fastq})` -o {output}
+        """
