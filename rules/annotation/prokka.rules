@@ -4,5 +4,12 @@ rule annotate_reference:
         "references/{reference}.fna.gz"
     output:
         "annotation/reference/{reference}.gff"
+    params:
+        outdir = "annotation/reference/prokka_output",
+        outfile = "PROKKA_*.gff",
+        load_env = config["annotate_reference"]["load_env"]
     shell:
-        "touch {output}" 
+        """{params.load_env}
+           prokka {input} --outdir {params.outdir} && \
+           cp {params.outdir}/{params.outfile} {output}
+        """ 
