@@ -1,0 +1,16 @@
+rule bam_sort_index:
+    input:
+        "mapping/{program}/{reference}/{sample}/{sample}.bam"
+    output:
+        sorted = "mapping/{program}/{reference}/{sample}/{sample}-s.bam",
+        indexed = "mapping/{program}/{reference}/{sample}/{sample}-s.bam.bai"
+    params:
+        load_env = config["samfiles"]["load_env"],
+        sorted_prefix = "mapping/{program}/{reference}/{sample}/{sample}-s"
+    log:
+        "mapping/{program}/{reference}/{sample}/{sample}-s.bam.log"
+    shell:
+        """{params.load_env}
+        samtools sort {input} {params.sorted_prefix} 
+        samtools index {output.sorted} {output.indexed}
+        """
