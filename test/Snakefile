@@ -26,9 +26,9 @@ rule prepare:
     params:
         testdir = os.getcwd()
     shell:
-        """mkdir -p annotation/reference references samples mapping quantification
+        """mkdir -p annotation/reference references samples/after_qc mapping quantification
            cp {params.testdir}/test_data/references/assembly_v1.fna references/
-           cp {params.testdir}/test_data/samples/*.fastq samples/
+           cp {params.testdir}/test_data/samples/after_qc/*.fastq samples/after_qc
            cp {params.testdir}/test_data/annotation/reference/assembly_v1.gff annotation/reference/"""
 
 rule all_from_mapping:
