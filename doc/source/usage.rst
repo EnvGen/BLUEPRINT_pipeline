@@ -200,4 +200,7 @@ If everything went alright you should now have have the following files::
 
     19 directories, 30 files
 
-Where the two files `120322.rpkm` and `120507.rpkm` are the most interesting ones. These should contain one row for each open reading fram found in the file `annotation/reference/assembly_v1.gff`. Each row would then contain the ORF id and a RPKM value. 
+Where the two files `120322.rpkm` and `120507.rpkm` are the most interesting ones. These should contain one row for each open reading fram found in the file `annotation/reference/assembly_v1.gff`. Each row would then contain the ORF id and a RPKM value. If you'd like to remove all the files created in this exercise in a smooth way there is a special rule for that as well::
+
+    # Running this will delete all directories created by the prepare command
+    snakemake clean_up
