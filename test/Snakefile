@@ -3,7 +3,11 @@ __license__ = "MIT"
 
 WORKFLOW_DIR = os.path.join(os.getcwd(), "..")
 
-configfile: "config.json"
+# Chose config file based on if we're on uppmax or not
+if os.environ['SNIC_RESOURCE']:
+    configfile: "config_uppmax.json"
+else:
+    configfile: "config.json"
 
 import os
 
@@ -23,9 +27,9 @@ rule prepare:
         testdir = os.getcwd()
     shell:
         """mkdir -p annotation/reference references samples mapping quantification
-           ln -s {params.testdir}/test_data/references/assembly_v1.fna references/
-           ln -s {params.testdir}/test_data/samples/*.fastq samples/
-           ln -s {params.testdir}/test_data/annotation/reference/assembly_v1.gff annotation/reference/"""
+           cp {params.testdir}/test_data/references/assembly_v1.fna references/
+           cp {params.testdir}/test_data/samples/*.fastq samples/
+           cp {params.testdir}/test_data/annotation/reference/assembly_v1.gff annotation/reference/"""
 
 rule all_from_mapping:
     input:
