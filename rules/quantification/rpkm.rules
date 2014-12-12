@@ -3,7 +3,7 @@ rule rpkm_per_orf:
     input:
         bam = "mapping/bowtie2/{reference}/{sample}/{sample}-s.bam",
         gff = "annotation/reference/{reference}.gff",
-        fastq = expand("samples/{{sample}}_R{mate}.fastq", mate=[1,2])
+        fastq = expand("samples/after_qc/{{sample}}_R{mate}.fastq", mate=[1,2])
     output:
         protected("quantification/{reference}/orf/{sample}/{sample}.rpkm")
     params:
