@@ -1,0 +1,17 @@
+rule fastqc:
+    input:
+        R1 = "samples/sickle/{sample}_R1.fastq",
+        R2 = "samples/sickle/{sample}_R2.fastq"
+    output:
+        html_R1 = "samples/fastqc/{sample}/{sample}_R1_fastqc.html",
+        html_R2 = "samples/fastqc/{sample}/{sample}_R2_fastqc.html",
+        zip_R1 = temp("samples/fastqc/{sample}/{sample}_R1_fastqc.zip"),
+        zip_R2 = temp("samples/fastqc/{sample}/{sample}_R2_fastqc.zip")
+    params:
+        load_env = config["fastqc"]["load_env"],
+        out_dir = "samples/fastqc/{sample}"
+    shell:
+        """{params.load_env}
+        fastqc {input.R1} -o {params.out_dir}
+        fastqc {input.R2} -o {params.out_dir}
+        """
