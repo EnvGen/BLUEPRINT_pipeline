@@ -13,7 +13,7 @@ Blueprint is a BONUS project and you can read more about it at the `Blueprint we
 
 Purpose
 -------
-This toolbox or pipeline aim is to be used to process metagenomic and metatranscriptomic sequencing data, produced by the Blueprint project, in order to present the results in a meaningful  and comprehensive way.
+This toolbox or pipeline's aim is to be used to process metagenomic and metatranscriptomic sequencing data, produced by the Blueprint project, in order to present the results in a meaningful and comprehensive way.
 The basis for the pipeline will be a reference metagenomic assembly, that will only be generated a few times.
 Both metagenomic and metatranscriptomic samples will be mapped against the reference assembly to quantify the presence of each reference contig or reference open reading frame in the sample. 
 When a new such assembly is performed all results derived from the assembly needs to be recomputed.
@@ -21,16 +21,9 @@ When a new such assembly is performed all results derived from the assembly need
 A big advantage in using a reference metagenomic assembly is that several computationally heavy steps, e.g. functional annotation and taxonomic classification, can be done once for the reference assembly and then reused for all samples.
 As an example the taxonomic classification will be done per sequence in the reference assembly, and to estimate the abundance of a specific taxa in a sample, the pipeline looks at the all sequences classified as this taxa in the mapping of the sample sequences against the reference assembly. 
 
-The outputs of the pipeline are files containing counts for each entitiy within a category. 
-The count for a specific entity is a quantification of the presence of this entity in the sample being processed.
-The categories are 
+The outputs of the pipeline are files containing a quantitative measure for each gene or open reading frame in the reference assembly. Together with the annotation for the reference assembly, this is sufficient to quantify different annotations for each sample. 
 
-    - EC-number
-    - COG
-    - Pfam
-    - TIGRFAM
-    - Taxonomy
-
+As a quantification measure, RPKM, reads per kilobase per million reads, have been chosen since this normalizes the number of reads mapping to a gene with the length of the gene and the total number of reads in the sequencing output.
 
 Contents:
 =========
