@@ -7,7 +7,9 @@ The software that needs to be available is:
 
     - Bowtie2_
     - samtools_
-        
+    - sickle_
+    - Fastqc_
+
 .. _Bowtie2: http://bowtie-bio.sourceforge.net/bowtie2/index.shtml
 .. _Velvet: http://www.ebi.ac.uk/~zerbino/velvet/
 .. _xclip: http://sourceforge.net/projects/xclip/
@@ -87,12 +89,18 @@ This directory currently contains a few files, the output of the excellent 'tree
         ├── references
         │   └── assembly_v1.fna
         └── samples
-            ├── 120322_R1.fastq
-            ├── 120322_R2.fastq
-            ├── 120507_R1.fastq
-            └── 120507_R2.fastq
+            ├── after_qc
+            │   ├── 120322_R1.fastq
+            │   ├── 120322_R2.fastq
+            │   ├── 120507_R1.fastq
+            │   └── 120507_R2.fastq
+            └── raw
+                ├── 120322_R1.fastq
+                ├── 120322_R2.fastq
+                ├── 120507_R1.fastq
+                └── 120507_R2.fastq
 
-    5 directories, 9 files 
+    7 directories, 13 files
 
 The files within the test_data directory is the data that we'll use to kick off our pipeline, the Snakefile defines what result files we'd like to create and how to create them, the config.json file defines specific configurations we'll need (for this case where the python2 executable is available), and config_uppmax.json is a special config file needed only if we're running our test on any of the uppmax_ clusters.
 
@@ -117,10 +125,16 @@ Lets have a look at what this command created::
     │   └── assembly_v1.fna
     ├── rpkm_for_orfs.py -> ~/repos/BLUEPRINT_pipeline/test/../scripts/rpkm_for_orfs.py
     ├── samples
-    │   ├── 120322_R1.fastq
-    │   ├── 120322_R2.fastq
-    │   ├── 120507_R1.fastq
-    │   └── 120507_R2.fastq
+    │   ├── after_qc
+    │   │   ├── 120322_R1.fastq
+    │   │   ├── 120322_R2.fastq
+    │   │   ├── 120507_R1.fastq
+    │   │   └── 120507_R2.fastq
+    │   └── raw
+    │       ├── 120322_R1.fastq
+    │       ├── 120322_R2.fastq
+    │       ├── 120507_R1.fastq
+    │       └── 120507_R2.fastq
     ├── Snakefile
     └── test_data
         ├── annotation
@@ -129,24 +143,101 @@ Lets have a look at what this command created::
         ├── references
         │   └── assembly_v1.fna
         └── samples
-            ├── 120322_R1.fastq
-            ├── 120322_R2.fastq
-            ├── 120507_R1.fastq
-            └── 120507_R2.fastq
+            ├── after_qc
+            │   ├── 120322_R1.fastq
+            │   ├── 120322_R2.fastq
+            │   ├── 120507_R1.fastq
+            │   └── 120507_R2.fastq
+            └── raw
+                ├── 120322_R1.fastq
+                ├── 120322_R2.fastq
+                ├── 120507_R1.fastq
+                └── 120507_R2.fastq
 
-    11 directories, 16 files
+    15 directories, 24 files
 
 This shows us that the command has created a directory structure similar to the one present in the 'test_data' directory and copied the files present in test_data. It has also created two new directories named mapping and quantification where some output from the pipeline will be stored and created a link to the script `rpkm_for_orfs.py`. Now we should check what the pipeline would do if we executed it. By adding the `--dryrun` argument to snakemake, it will not execute any command but only show what it would do::
 
+
+    snakemake --dryrun test_qc
+
+This should output a list of rules with input files and output files connected to them. After going through this list, running the first part of the pipeline should now be as simple as::
+
+    snakemake test_qc
+
+If everything went alright you should now have the folloing files::
+
+        $ tree
+    .
+    ├── annotation
+    │   └── reference
+    │       └── assembly_v1.gff
+    ├── config.json
+    ├── config_uppmax.json
+    ├── mapping
+    ├── quantification
+    ├── references
+    │   └── assembly_v1.fna
+    ├── rpkm_for_orfs.py -> /pica/h1/alneberg/repos/BLUEPRINT_pipeline/test/../scripts/rpkm_for_orfs.py
+    ├── samples
+    │   ├── after_qc
+    │   │   ├── 120322_R1.fastq
+    │   │   ├── 120322_R2.fastq
+    │   │   ├── 120507_R1.fastq
+    │   │   └── 120507_R2.fastq
+    │   ├── fastqc
+    │   │   ├── 120322
+    │   │   │   ├── 120322_R1_fastqc.html
+    │   │   │   └── 120322_R2_fastqc.html
+    │   │   └── 120507
+    │   │       ├── 120507_R1_fastqc.html
+    │   │       └── 120507_R2_fastqc.html
+    │   ├── raw
+    │   │   ├── 120322_R1.fastq
+    │   │   ├── 120322_R2.fastq
+    │   │   ├── 120507_R1.fastq
+    │   │   └── 120507_R2.fastq
+    │   └── sickle
+    │       ├── 120322.log
+    │       ├── 120322_R1.fastq
+    │       ├── 120322_R2.fastq
+    │       ├── 120322_single.fastq
+    │       ├── 120507.log
+    │       ├── 120507_R1.fastq
+    │       ├── 120507_R2.fastq
+    │       └── 120507_single.fastq
+    ├── Snakefile
+    └── test_data
+        ├── annotation
+        │   └── reference
+        │       └── assembly_v1.gff
+        ├── references
+        │   └── assembly_v1.fna
+        └── samples
+            ├── after_qc
+            │   ├── 120322_R1.fastq
+            │   ├── 120322_R2.fastq
+            │   ├── 120507_R1.fastq
+            │   └── 120507_R2.fastq
+            └── raw
+                ├── 120322_R1.fastq
+                ├── 120322_R2.fastq
+                ├── 120507_R1.fastq
+                └── 120507_R2.fastq
+
+    19 directories, 36 files 
+
+At this point, in a real case, you should have a look at the fastqc output files with a `.html` extension. These are reports about the quality of the input files and based on these the user will have to take a decision if the input files are good enough to continue with, in that case copy the files to the `after_qc` directory, or if some additional step has to be run, such as cutting adaptor sequences. For this example we've prepared this step already, so we're ready to take the next step. To check what the next step will execute, check::
+
     snakemake --dryrun all_from_mapping
 
-This should output a list of rules with input files and output files connected to them. After going through this list, running the complete pipeline should now be as simple as::
-
+and to kick off the last main part of the pipeline, run::
+    
     snakemake all_from_mapping
 
 If everything went alright you should now have have the following files::
 
-        $ tree
+     $tree
     .
     ├── annotation
     │   └── reference
@@ -157,13 +248,6 @@ If everything went alright you should now have have the following files::
     │   └── bowtie2
     │       ├── assembly_v1
     │       │   ├── 120322
-    │       │   │   ├── 120322.bam.log
-    │       │   │   ├── 120322-s.bam
-    │       │   │   └── 120322-s.bam.bai
-    │       │   └── 120507
-    │       │       ├── 120507.bam.log
-    │       │       ├── 120507-s.bam
-    │       │       └── 120507-s.bam.bai
     │       ├── assembly_v1.1.bt2
     │       ├── assembly_v1.2.bt2
     │       ├── assembly_v1.3.bt2
@@ -181,10 +265,32 @@ If everything went alright you should now have have the following files::
     │   └── assembly_v1.fna
     ├── rpkm_for_orfs.py -> ~/repos/BLUEPRINT_pipeline/test/../scripts/rpkm_for_orfs.py
     ├── samples
-    │   ├── 120322_R1.fastq
-    │   ├── 120322_R2.fastq
-    │   ├── 120507_R1.fastq
-    │   └── 120507_R2.fastq
+    │   ├── after_qc
+    │   │   ├── 120322_R1.fastq
+    │   │   ├── 120322_R2.fastq
+    │   │   ├── 120507_R1.fastq
+    │   │   └── 120507_R2.fastq
+    │   ├── fastqc
+    │   │   ├── 120322
+    │   │   │   ├── 120322_R1_fastqc.html
+    │   │   │   └── 120322_R2_fastqc.html
+    │   │   └── 120507
+    │   │       ├── 120507_R1_fastqc.html
+    │   │       └── 120507_R2_fastqc.html
+    │   ├── raw
+    │   │   ├── 120322_R1.fastq
+    │   │   ├── 120322_R2.fastq
+    │   │   ├── 120507_R1.fastq
+    │   │   └── 120507_R2.fastq
+    │   └── sickle
+    │       ├── 120322.log
+    │       ├── 120322_R1.fastq
+    │       ├── 120322_R2.fastq
+    │       ├── 120322_single.fastq
+    │       ├── 120507.log
+    │       ├── 120507_R1.fastq
+    │       ├── 120507_R2.fastq
+    │       └── 120507_single.fastq
     ├── Snakefile
     └── test_data
         ├── annotation
@@ -193,11 +299,17 @@ If everything went alright you should now have have the following files::
         ├── references
         │   └── assembly_v1.fna
         └── samples
-            ├── 120322_R1.fastq
-            ├── 120322_R2.fastq
-            ├── 120507_R1.fastq
-            └── 120507_R2.fastq
+            ├── after_qc
+            │   ├── 120322_R1.fastq
+            │   ├── 120322_R2.fastq
+            │   ├── 120507_R1.fastq
+            │   └── 120507_R2.fastq
+            └── raw
+                ├── 120322_R1.fastq
+                ├── 120322_R2.fastq
+                ├── 120507_R1.fastq
+                └── 120507_R2.fastq
 
-    19 directories, 30 files
+    27 directories, 50 files
 
-Where the two files `120322.rpkm` and `120507.rpkm` are the most interesting ones. These should contain one row for each open reading fram found in the file `annotation/reference/assembly_v1.gff`. Each row would then contain the ORF id and a RPKM value. 
+Where the two files `120322.rpkm` and `120507.rpkm` are the most interesting ones. These should contain one row for each open reading fram found in the file `annotation/reference/assembly_v1.gff`. Each row would then contain the ORF id and a RPKM value which is ready to e.g. be imported into a databse. 
