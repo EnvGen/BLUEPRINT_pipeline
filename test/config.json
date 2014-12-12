@@ -11,5 +11,5 @@
     "from_mapping": {
         "load_env": "module load bioinfo-tools samtools"
     },
-    "python2": "/home/alneberg/miniconda/envs/BLUEPRINT_pipeline_2.7/bin/python2.7"
+    "python2": "~/miniconda/envs/BLUEPRINT_pipeline_2.7/bin/python2.7"
 }
