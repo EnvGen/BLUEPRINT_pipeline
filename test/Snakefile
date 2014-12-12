@@ -14,6 +14,8 @@ import os
 include: os.path.join(WORKFLOW_DIR, "rules/mapping/bowtie2.rules")
 include: os.path.join(WORKFLOW_DIR, "rules/mapping/samfiles.rules")
 include: os.path.join(WORKFLOW_DIR, "rules/quantification/rpkm.rules")
+include: os.path.join(WORKFLOW_DIR, "rules/qc/sickle.rules")
+include: os.path.join(WORKFLOW_DIR, "rules/qc/fastqc.rules")
 
 # Make sure the scripts are available in working dir
 script_dir = os.path.join(WORKFLOW_DIR, "scripts")
@@ -26,9 +28,10 @@ rule prepare:
     params:
         testdir = os.getcwd()
     shell:
-        """mkdir -p annotation/reference references samples/after_qc mapping quantification
+        """mkdir -p annotation/reference references samples/after_qc samples/raw mapping quantification
            cp {params.testdir}/test_data/references/assembly_v1.fna references/
            cp {params.testdir}/test_data/samples/after_qc/*.fastq samples/after_qc
+           cp {params.testdir}/test_data/samples/raw/*fastq samples/raw
            cp {params.testdir}/test_data/annotation/reference/assembly_v1.gff annotation/reference/"""
 
 rule all_from_mapping:
@@ -41,3 +44,9 @@ rule clean_up:
     shell:
         """rm -r annotation references samples rpkm_for_orfs.py mapping
            rm -rf quantification"""
+
+rule test_qc:
+    input:
+        expand("samples/fastqc/{samples}/{samples}_R{i}_fastqc.html",
+            samples = ["120322", "120507"],
+            i=[1,2])

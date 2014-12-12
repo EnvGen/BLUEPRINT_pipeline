@@ -11,5 +11,11 @@
     "from_mapping": {
         "load_env": ""
     },
+    "sickle": {
+        "load_env": ""
+    },
+    "fastqc": {
+        "load_env": ""
+    },
     "python2": "~/miniconda/envs/BLUEPRINT_pipeline_2.7/bin/python2.7"
 }
