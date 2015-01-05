@@ -9,7 +9,7 @@ import json
 from subprocess import call
 
 slurm_snake_params = ["--immediate-submit",
-                      "-j", 999,
+                      "-j", "999",
                       "--cluster", "Snakefile-sbatch.py {dependencies}"]
 
 def load_config():

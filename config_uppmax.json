@@ -17,6 +17,6 @@
     "fastqc": {
         "load_env": "module load bioinfo-tools FastQC/0.11.2"
     },
-    "python2": "~/miniconda/envs/BLUEPRINT_pipeline_2.7/bin/python2.7"
+    "python2": "~/miniconda/envs/BLUEPRINT_pipeline_2.7/bin/python2.7",
     "directory": "../../nobackup/pipeline_dir/"
 }
