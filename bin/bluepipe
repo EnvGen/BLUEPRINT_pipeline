@@ -23,7 +23,7 @@ def quantify_all(args, directory):
     """Run snakemake for the rule quantify_all"""
     if 'SNIC_RESOURCE' in os.environ:
         call(["snakemake", "quantify_all", 
-            "--directory", directory] + slurm_snake_params
+            "--directory", directory] + slurm_snake_params)
     else:
         call(["snakemake", "quantify_all", "--directory", directory])
 
