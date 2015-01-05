@@ -1,7 +1,6 @@
 __author__ = "Johannes Alneberg"
 __license__ = "MIT"
 
-WORKFLOW_DIR = os.getcwd()
 
 import os
 import sys
@@ -10,8 +9,10 @@ import shutil
 # Chose config file based on if we're on uppmax or not
 if 'SNIC_RESOURCE' in os.environ:
     configfile: "config_uppmax.json"
+    WORKFLOW_DIR = "/proj/b2014214/repos/BLUEPRINT_pipeline"
 else:
     configfile: "config.json"
+    WORKFLOW_DIR = ""
 
 include: os.path.join(WORKFLOW_DIR, "rules/mapping/bowtie2.rules")
 include: os.path.join(WORKFLOW_DIR, "rules/mapping/samfiles.rules")
