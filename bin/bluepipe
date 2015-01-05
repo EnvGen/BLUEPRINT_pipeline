@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+"""
+Wrapper script for running the BLUEPRINT pipeline
+"""
+import argparse
+import sys
+import os
+import json
+from subprocess import call
+
+slurm_snake_params = ["--immediate-submit",
+                      "-j", 999,
+                      "--cluster", "Snakefile-sbatch.py {dependencies}"]
+
+def load_config():
+    if 'SNIC_RESOURCE' in os.environ:
+        configfile = "config_uppmax.json"
+    else:
+        configfile = "config.json"
+    return json.load(open(configfile, 'r'))
+
+def quantify_all(args, directory):
+    """Run snakemake for the rule quantify_all"""
+    if 'SNIC_RESOURCE' in os.environ:
+        call(["snakemake", "quantify_all", 
+            "--directory", directory] + slurm_snake_params
+    else:
+        call(["snakemake", "quantify_all", "--directory", directory])
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.set_defaults(func=quantify_all)
+    config = load_config()
+    directory = config['directory']
+    args = parser.parse_args()
+    args.func(args, directory)
