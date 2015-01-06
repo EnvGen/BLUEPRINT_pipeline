@@ -16,7 +16,6 @@ rule sickle:
     shell:
         """{params.load_env}
            sickle pe -t sanger -f {input.R1} -r {input.R2} \
-                -o {params.o_R1} -p {params.o_R2} -s {params.o_s} > {log} \
-            gzip {params.o_R1} {params.o_R2} {params.o_s}
+                -o {params.o_R1} -p {params.o_R2} -s {params.o_s} > {log} && gzip {params.o_R1} {params.o_R2} {params.o_s}
         """
  
