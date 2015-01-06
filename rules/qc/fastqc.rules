@@ -1,7 +1,7 @@
 rule fastqc:
     input:
-        R1 = "samples/sickle/{sample}_R1.fastq",
-        R2 = "samples/sickle/{sample}_R2.fastq"
+        R1 = "samples/sickle/{sample}_R1.fastq.gz",
+        R2 = "samples/sickle/{sample}_R2.fastq.gz"
     output:
         html_R1 = "samples/fastqc/{sample}/{sample}_R1_fastqc.html",
         html_R2 = "samples/fastqc/{sample}/{sample}_R2_fastqc.html",

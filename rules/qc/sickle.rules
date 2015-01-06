@@ -1,11 +1,11 @@
 rule sickle:
     input:
-        R1 = "samples/raw/{sample}_R1.fastq",
-        R2 = "samples/raw/{sample}_R2.fastq"
+        R1 = "samples/raw/{sample}_R1.fastq.gz",
+        R2 = "samples/raw/{sample}_R2.fastq.gz"
     output:
-        R1 = "samples/sickle/{sample}_R1.fastq",
-        R2 = "samples/sickle/{sample}_R2.fastq",
-        single = "samples/sickle/{sample}_single.fastq"
+        R1 = "samples/sickle/{sample}_R1.fastq.gz",
+        R2 = "samples/sickle/{sample}_R2.fastq.gz",
+        single = "samples/sickle/{sample}_single.fastq.gz"
     params:
         load_env = config["sickle"]["load_env"]
     log:
