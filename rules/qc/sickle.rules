@@ -8,11 +8,15 @@ rule sickle:
         single = "samples/sickle/{sample}_single.fastq.gz"
     params:
         load_env = config["sickle"]["load_env"]
+        o_R1 = "samples/sickle/{sample}_R1.fastq",
+        o_R2 = "samples/sickle/{sample}_R2.fastq",
+        o_s = "samples/sickle/{sample}_single.fastq"
     log:
         "samples/sickle/{sample}.log"
     shell:
         """{params.load_env}
            sickle pe -t sanger -f {input.R1} -r {input.R2} \
-                -o {output.R1} -p {output.R2} -s {output.single} > {log}
+                -o {params.o_R1} -p {params.o_R2} -s {params.o_s} > {log} \
+            gzip {params.o_R1} {params.o_R2} {params.o_s}
         """
  
