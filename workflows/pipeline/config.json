@@ -1,0 +1,33 @@
+{
+    "rules": {
+        "bowtie2_rules": {
+            "load_env": ""
+        },
+        "samfiles": {
+            "load_env": ""
+        },
+        "annotate_reference": {
+            "load_env": ""
+        },
+        "from_mapping": {
+            "load_env": ""
+        },
+        "sickle": {
+            "load_env": ""
+        },
+        "fastqc": {
+            "load_env": ""
+        }
+    }
+    "python2": "~/miniconda/envs/BLUEPRINT_pipeline_2.7/bin/python2.7",
+    "tasks": {
+        "pipeline": {
+            "directory": "/proj/b2014214/nobackup/pipeline_dir/",
+            "snakefile": "/proj/b2014214/repos/BLUEPRINT_pipeline/Snakefile"
+        },
+        "concoct": {
+            "directory": "/proj/b2014214/nobackup/concoct_runs/",
+            "snakefile": "/proj/b2014214/repos/BLUEPRINT_pipeline/workflows/concoct/Snakefile"
+        }
+    }
+}
