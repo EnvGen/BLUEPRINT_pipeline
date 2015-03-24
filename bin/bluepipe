@@ -7,30 +7,44 @@ import sys
 import os
 import json
 from subprocess import call
+import contextlib
 
 slurm_snake_params = ["--immediate-submit",
                       "-j", "999",
                       "--cluster", "Snakefile-sbatch.py {dependencies}"]
 
 def load_config():
-    if 'SNIC_RESOURCE' in os.environ:
-        configfile = "config_uppmax.json"
-    else:
-        configfile = "config.json"
+    configfile = "config.json"
     return json.load(open(configfile, 'r'))
 
-def quantify_all(args, directory):
+@contextlib.contextmanager
+def cd(path):
+    """A context manager which changes the working directory to the given
+       path, and then changes it back to its previous value on exit.
+
+    """
+    prev_cwd = os.getcwd()
+    os.chdir(path)
+    yield
+    os.chdir(prev_cwd)
+
+def quantify_all(args, config):
     """Run snakemake for the rule quantify_all"""
     if 'SNIC_RESOURCE' in os.environ:
-        call(["snakemake", "quantify_all", 
-            "--directory", directory] + slurm_snake_params)
+        snake_params = slurm_snake_params
     else:
-        call(["snakemake", "quantify_all", "--directory", directory])
+        snake_params = []
+    if args.debug:
+        snake_params.append("--debug")
+    directory = config["tasks"]["pipeline"]["directory"]
+    snakefile = config["tasks"]["pipeline"]["snakefile"]
+    with cd(directory):
+        call(["snakemake", "quantify_all", "--snakefile", snakefile, "--config", "spurious=madeup"] + snake_params)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.set_defaults(func=quantify_all)
+    parser.add_argument('--debug', action="store_true", help="Run snakemake with debug set, will not execute anything") 
     config = load_config()
-    directory = config['directory']
     args = parser.parse_args()
-    args.func(args, directory)
+    args.func(args, config)
