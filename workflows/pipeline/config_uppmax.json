@@ -14,7 +14,7 @@
     "sickle": {
         "load_env": "module load bioinfo-tools sickle/1.210"
     },
-    "fastqc": {
+    "fastqc_rules": {
         "load_env": "module load bioinfo-tools FastQC/0.11.2"
     },
     "python2": "~/miniconda/envs/BLUEPRINT_pipeline_2.7/bin/python2.7",

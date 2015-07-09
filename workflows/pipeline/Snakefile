@@ -5,6 +5,7 @@ __license__ = "MIT"
 import os
 import sys
 import shutil
+import glob
 
 # Chose config file based on if we're on uppmax or not
 if 'SNIC_RESOURCE' in os.environ:
@@ -12,21 +13,27 @@ if 'SNIC_RESOURCE' in os.environ:
 else:
     configfile: "config.json"
 
-WORKFLOW_DIR = config["workflow_directory"]
+config["fastqc_rules"]["reads"] = {}
+for read_file in glob.glob("samples/raw/*.fq.gz"):
+    read_basename = os.path.basename(read_file)
+    read_name = read_basename.replace(".fq.gz", "")
+    config["fastqc_rules"]["reads"][read_name] = read_file
 
-include: os.path.join(WORKFLOW_DIR, "rules/mapping/bowtie2.rules")
-include: os.path.join(WORKFLOW_DIR, "rules/mapping/samfiles.rules")
-include: os.path.join(WORKFLOW_DIR, "rules/quantification/rpkm.rules")
-include: os.path.join(WORKFLOW_DIR, "rules/qc/sickle.rules")
-include: os.path.join(WORKFLOW_DIR, "rules/qc/fastqc.rules")
+WORKFLOW_DIR = "../../snakemake-workflows/"
+
+#include: os.path.join(WORKFLOW_DIR, "rules/mapping/bowtie2.rules")
+#include: os.path.join(WORKFLOW_DIR, "rules/mapping/samfiles.rules")
+#include: os.path.join(WORKFLOW_DIR, "rules/quantification/rpkm.rules")
+#include: os.path.join(WORKFLOW_DIR, "rules/qc/sickle.rules")
+include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/quality_control/fastqc.rules")
 
 # Make sure the scripts are available in working dir
-script_dir = os.path.join(WORKFLOW_DIR, "scripts")
-for script in os.listdir(script_dir):
-    script_name = os.path.basename(script)
-    if not shutil.which(script_name) and not os.path.exists(script_name):
-        print("Script {0} not available, exiting.".format(os.path.basename(script)))
-        sys.exit(-1)
+#script_dir = os.path.join(WORKFLOW_DIR, "scripts")
+#for script in os.listdir(script_dir):
+#    script_name = os.path.basename(script)
+#    if not shutil.which(script_name) and not os.path.exists(script_name):
+#        print("Script {0} not available, exiting.".format(os.path.basename(script)))
+#        sys.exit(-1)
 
 rule quantify_all:
     input:
