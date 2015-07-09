@@ -11,7 +11,7 @@ import contextlib
 
 slurm_snake_params = ["--immediate-submit",
                       "-j", "999",
-                      "--cluster", "Snakefile-sbatch.py {dependencies}"]
+                      "--cluster", "Snakefile_sbatch.py {dependencies}"]
 
 def load_config():
     configfile = "config.json"
@@ -34,8 +34,8 @@ def quantify_all(args, config):
         snake_params = slurm_snake_params
     else:
         snake_params = []
-    if args.debug:
-        snake_params.append("--debug")
+    if args.dryrun:
+        snake_params.append("--dryrun")
     directory = config["tasks"]["pipeline"]["directory"]
     snakefile = config["tasks"]["pipeline"]["snakefile"]
     with cd(directory):
@@ -44,7 +44,7 @@ def quantify_all(args, config):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.set_defaults(func=quantify_all)
-    parser.add_argument('--debug', action="store_true", help="Run snakemake with debug set, will not execute anything") 
+    parser.add_argument('--dryrun', action="store_true", help="Run snakemake with dryrun set, will not execute anything") 
     config = load_config()
     args = parser.parse_args()
     args.func(args, config)

@@ -31,5 +31,5 @@ for script in os.listdir(script_dir):
 rule quantify_all:
     input:
         expand("quantification/{assembly}/orf/{samples}/{samples}.rpkm",
-            samples = ["P1414_101", "P1414_102"],
+            samples = ["P1414_101", "P1414_102", "P1414_103"],
             assembly = "assembly_v1"),
