@@ -54,11 +54,33 @@
         "extra_parameters": ""
     },
     "schedule_fastqc": {
-        "days": 1,
-        "hours": 0,
+        "days": 0,
+        "hours": 4,
         "minutes": 0,
         "partition": "core",
         "cores": 1,
         "extra_parameters": ""
-    }
+    },
+    "schedule_cutadapt": {
+        "days": 0,
+        "hours": 5,
+        "minutes": 0,
+        "partition": "core",
+        "cores": 2,
+        "extra_parameters": ""
+    },
+    "schedule_fastuniq": {
+        "days": 0,
+        "hours": 6,
+        "minutes": 0,
+        "partition": "node",
+        "cores": 16,
+        "extra_parameters": ""
+    },
+    "schedule_fastqc_all": "schedule_short",
+    "schedule_cutadapt_trim_fixed": "schedule_cutadapt",
+    "schedule_cutadapt_pe": "schedule_cutadapt",
+    "schedule_cutadapt_all": "schedule_short",
+    "schedule_cutadapt_all_test": "schedule_short",
+    "schedule_fastqc_all_test": "schedule_short"
 }
