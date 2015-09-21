@@ -63,7 +63,7 @@
     },
     "schedule_cutadapt": {
         "days": 0,
-        "hours": 5,
+        "hours": 7,
         "minutes": 0,
         "partition": "core",
         "cores": 2,
