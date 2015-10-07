@@ -82,5 +82,23 @@
     "schedule_cutadapt_pe": "schedule_cutadapt",
     "schedule_cutadapt_all": "schedule_short",
     "schedule_cutadapt_all_test": "schedule_short",
-    "schedule_fastqc_all_test": "schedule_short"
+    "schedule_fastqc_all_test": "schedule_short",
+    "schedule_ray_assembly": {
+        "days": 2,
+        "hours": 0,
+        "minutes": 0,
+        "partition": "node",
+        "cores": 32,
+        "extra_parameters": "--mail-type=END --mail-user=johannes.alneberg@scilifelab.se"
+    },
+    "schedule_megahit_assemble_sample": {
+        "days": 0,
+        "hours": 12,
+        "minutes": 0,
+        "partition": "node",
+        "cores": 16,
+        "extra_parameters": "-C mem512GB --mail-type=END --mail-user=johannes.alneberg@scilifelab.se"
+    },
+    "schedule_ray_assembly_all": "schedule_short",
+    "schedule_megahit_assemble_sample_all": "schedule_short"
 }

@@ -41,6 +41,16 @@
     },
     "fastuniq_rules": {
     },
+    "ray_rules": {
+        "assembly_params": {"default": ""},
+        "kmers": [21],
+        "load_env": "module load bioinfo-tools Ray/2.3.1-mpiio",
+        "mpi_cmd": "mpiexec -n 32"
+    },
+    "megahit_rules": {
+        "load_env": "",
+        "assembly_params": {"default": ""}
+    },
     "python2": "~/miniconda/envs/BLUEPRINT_pipeline_2.7/bin/python2.7",
     "directory": "/proj/b2014214/nobackup/pipeline_dir/",
     "workflow_directory": "/proj/b2014214/repos/BLUEPRINT_pipeline/"
