@@ -50,7 +50,7 @@
     "megahit_rules": {
         "load_env": "",
         "assembly_params": {"default": ""},
-        "coassembly_params": {"default": ""}
+        "coassembly_params": {"default": "-m 0.99"}
     },
     "python2": "~/miniconda/envs/BLUEPRINT_pipeline_2.7/bin/python2.7",
     "directory": "/proj/b2014214/nobackup/pipeline_dir/",
