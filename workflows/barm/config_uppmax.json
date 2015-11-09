@@ -1,0 +1,58 @@
+{
+    "bowtie2_rules": {
+        "load_env": "module load bioinfo-tools bowtie2/2.0.2 samtools/0.1.19"
+    },
+    "samfiles": {
+        "load_env": "module load bioinfo-tools samtools BEDTools/2.21.0"
+    },
+    "annotate_reference": {
+        "load_env": "module load bioinfo-tools BioPerl/1.6.1_PERL5.10.1 blast/2.2.28+ hmmer/3.1b1-intel prodigal/2.60 gnuparallel"
+    },
+    "from_mapping": {
+        "load_env": "module load bioinfo-tools samtools/0.1.19"
+    },
+    "sickle": {
+        "load_env": "module load bioinfo-tools sickle/1.210"
+    },
+    "fastqc_rules": {
+        "load_env": "module load bioinfo-tools FastQC/0.11.2"
+    },
+    "cutadapt_rules": {
+        "load_env": "module load bioinfo-tools cutadapt/1.8.0",
+        "trim_params": {
+            "quality_and_indices": {
+                "1": {
+                    "trim_end": "-q 15,15",
+                    "trim_start": "-u 0"
+                    },
+                "2": {
+                    "trim_end": "-q 15,15",
+                    "trim_start": "-u 0"
+                    },
+                "variable_template": "-n 3 --minimum-length 31 -a {R1_first}{R1_index}{R1_end} -G '^CGTGTGCTCTTCCGATCT' -A {R2_rev_end}{R2_rev_index}{R2_rev_first}",
+                "common_variables": {
+                    "R1_first": "AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC",
+                    "R1_end": "ATCTCGTATGCCGTCTTCTGCTTG",
+                    "R2_rev_end": "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT",
+                    "R2_rev_first": "GTGTAGATCTCGGTGGTCGCCGTATCATT"
+                }
+            }
+        }
+    },
+    "fastuniq_rules": {
+    },
+    "ray_rules": {
+        "assembly_params": {"default": ""},
+        "kmers": [21],
+        "load_env": "module load bioinfo-tools Ray/2.3.1-mpiio",
+        "mpi_cmd": "mpiexec -n 32"
+    },
+    "megahit_rules": {
+        "load_env": "",
+        "assembly_params": {"default": ""},
+        "coassembly_params": {"default": "-m 0.99 --continue"}
+    },
+    "python2": "~/miniconda/envs/BLUEPRINT_pipeline_2.7/bin/python2.7",
+    "directory": "/proj/b2014214/nobackup/pipeline_dir/",
+    "workflow_directory": "/proj/b2014214/repos/BLUEPRINT_pipeline/"
+}
