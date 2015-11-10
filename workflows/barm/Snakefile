@@ -106,6 +106,7 @@ include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/quality_control/fastqc.rules"
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/duplicate_removal/fastuniq.rules")
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/assembly/ray.rules")
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/assembly/megahit.rules")
+include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/annotation/prokka.rules")
 
 rule preprocess_all:
     input:
