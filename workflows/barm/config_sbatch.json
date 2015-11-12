@@ -74,7 +74,7 @@
         "hours": 6,
         "minutes": 0,
         "partition": "node",
-        "cores": 16,
+        "cores": 8,
         "extra_parameters": ""
     },
     "schedule_fastqc_all": "schedule_short",
