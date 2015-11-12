@@ -20,6 +20,23 @@
     "cutadapt_rules": {
         "load_env": "module load bioinfo-tools cutadapt/1.8.0",
         "trim_params": {
+            "quality_adapter_no_indices": {
+                "1": {
+                    "trim_end": "-q 15,15",
+                    "trim_start": "-u 0"
+                    },
+                "2": {
+                    "trim_end": "-q 15,15",
+                    "trim_start": "-u 0"
+                    },
+                "variable_template": "-n 3 --minimum-length 31 -a {R1_first} -G '^CGTGTGCTCTTCCGATCT' -A {R2_rev_end}",
+                "common_variables": {
+                    "R1_first": "AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC",
+                    "R1_end": "ATCTCGTATGCCGTCTTCTGCTTG",
+                    "R2_rev_end": "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT",
+                    "R2_rev_first": "GTGTAGATCTCGGTGGTCGCCGTATCATT"
+                }
+            },
             "quality_and_indices": {
                 "1": {
                     "trim_end": "-q 15,15",
