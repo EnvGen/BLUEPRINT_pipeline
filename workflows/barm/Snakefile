@@ -65,15 +65,15 @@ for read_file in glob.glob("samples/raw/*.fq.gz"):
         config["cutadapt_rules"]["reads"][read_name] = [read_file]
     
     # Add the variable barcode sequences for each sample to cutadapt config
-    if read_name in sample_indices["R1_index"]:
-        for trim_params_name, trim_params_config in config["cutadapt_rules"]["trim_params"].items():
-            if "common_variables" in trim_params_config.keys():
-                variables = config["cutadapt_rules"]["trim_params"][trim_params_name]["common_variables"].copy()
+    for trim_params_name, trim_params_config in config["cutadapt_rules"]["trim_params"].items():
+        if "common_variables" in trim_params_config.keys():
+            variables = config["cutadapt_rules"]["trim_params"][trim_params_name]["common_variables"].copy()
+            if read_name in sample_indices["R1_index"]:
                 variables["R1_index"] = sample_indices["R1_index"][read_name]
                 variables["R2_rev_index"] = sample_indices["R2_rev_index"][read_name]
-                if "variables" not in config["cutadapt_rules"]["trim_params"][trim_params_name]:
-                    config["cutadapt_rules"]["trim_params"][trim_params_name]["variables"] = {}
-                config["cutadapt_rules"]["trim_params"][trim_params_name]["variables"][read_name] = variables
+            if "variables" not in config["cutadapt_rules"]["trim_params"][trim_params_name]:
+                config["cutadapt_rules"]["trim_params"][trim_params_name]["variables"] = {}
+            config["cutadapt_rules"]["trim_params"][trim_params_name]["variables"][read_name] = variables
 
 for read_file in glob.glob("finished_reads/*.fq.gz"):
     read_basename = os.path.basename(read_file)
