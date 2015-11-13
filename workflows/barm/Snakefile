@@ -41,26 +41,30 @@ with open("analysis_per_sample.json") as aps:
 
 for read_file in glob.glob("samples/raw/*.fq.gz"):
     read_basename = os.path.basename(read_file)
-    read_name = read_basename.replace(".fq.gz", "")
-    config["fastqc_rules"]["reads"][read_name] = read_file
+    read_mate_name = read_basename.replace(".fq.gz", "")
+    config["fastqc_rules"]["reads"][read_mate_name] = read_file
    
+    read_name = read_mate_name.replace("_R1", "").replace("_R2", "")
+    
     # Add all steps to fastqc - this will cause fastqc to run after each step 
     # as well as on the raw reads 
     for trim_params_name, trim_params_dict in config["cutadapt_rules"]["trim_params"].items():
-        config["fastqc_rules"]["reads"]["cutadapt_"+trim_params_name+"_"+read_name] = \
+        if trim_params_name not in analysis_per_sample[read_name]:
+            continue
+
+        config["fastqc_rules"]["reads"]["cutadapt_"+trim_params_name+"_"+read_mate_name] = \
             "cutadapt/adapt_cutting/{trim_params}/{read}".format(
                 trim_params=trim_params_name,
                 read = read_basename
             ) 
 
-        config["fastqc_rules"]["reads"]["fastuniq_"+trim_params_name+"_"+read_name] = \
+        config["fastqc_rules"]["reads"]["fastuniq_"+trim_params_name+"_"+read_mate_name] = \
             "fastuniq/{trim_params}/{read}".format(
                 trim_params=trim_params_name,
                 read = read_basename
             ) 
-    # Hack to get read pairs in a list
-    read_name = read_name.replace("_R1", "").replace("_R2", "")
 
+    # Hack to get read pairs in a list
     if read_name in config["cutadapt_rules"]["reads"]:
         config["cutadapt_rules"]["reads"][read_name].append(read_file)
         config["cutadapt_rules"]["reads"][read_name].sort()
