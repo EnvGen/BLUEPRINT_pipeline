@@ -83,6 +83,13 @@ for read_file in glob.glob("samples/raw/*.fq.gz"):
                     config["cutadapt_rules"]["trim_params"][trim_params_name]["variables"] = {}
                 config["cutadapt_rules"]["trim_params"][trim_params_name]["variables"][read_name] = variables
 
+# Add megahit coassembly annotated sequences for merging before quantification
+config["prokka_extended_rules"]["merging_sample_sets"] = {}
+config["prokka_extended_rules"]["merging_sample_sets"]["megahit_coassembly"] = []
+for contigs_name, contigs_f in config["prokka_extended_rules"]["contigs"].items():
+    if contigs_name.startswith("megahit_coassembly"):
+        config["prokka_extended_rules"]["merging_sample_sets"]["megahit_coassembly"].append(contigs_name)
+
 for read_file in glob.glob("finished_reads/*.fq.gz"):
     read_basename = os.path.basename(read_file)
     read_name = read_basename.replace(".fq.gz", "")
