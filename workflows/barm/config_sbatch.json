@@ -14,11 +14,11 @@
     "schedule_all": "schedule_short",
     "schedule_quantify_all": "schedule_short",
     "schedule_bowtie2_index": {
-        "days": 0,
-        "hours": 2,
+        "days": 1,
+        "hours": 0,
         "minutes": 0,
         "partition": "core",
-        "cores": "1",
+        "cores": "2",
         "extra_parameters": ""
     },
     "schedule_bowtie2_map": {
@@ -29,7 +29,23 @@
         "cores": "4",
         "extra_parameters": ""
     },
-    "schedule_bam_sort_index": {
+    "schedule_bowtie2_index_large": {
+        "days": 1,
+        "hours": 0,
+        "minutes": 0,
+        "partition": "core",
+        "cores": "4",
+        "extra_parameters": ""
+    },
+    "schedule_bowtie2_map_large": {
+        "days": 1,
+        "hours": 0,
+        "minutes": 0,
+        "partition": "node",
+        "cores": "16",
+        "extra_parameters": ""
+    },
+    "schedule_one_core_medium": {
         "days": 0,
         "hours": 6,
         "minutes": 0,
@@ -37,6 +53,55 @@
         "cores": "1",
         "extra_parameters": ""
     },
+    "schedule_remove_mark_duplicates": {
+        "days": 1,
+        "hours": 0,
+        "minutes": 0,
+        "partition": "core",
+        "cores": "6",
+        "extra_parameters": ""
+    },
+    "schedule_bedtools_coverage": {
+        "days": 0,
+        "hours": 6,
+        "minutes": 0,
+        "partition": "core",
+        "cores": "1",
+        "extra_parameters": ""
+    },
+    "schedule_bam_sort": {
+        "days": 0,
+        "hours": 12,
+        "minutes": 0,
+        "partition": "node",
+        "cores": "16",
+        "extra_parameters": ""
+    },
+    "schedule_bowtie2_quant_coverage_table": {
+        "days": 0,
+        "hours": 1,
+        "minutes": 0,
+        "partition": "core",
+        "cores": "1",
+        "extra_parameters": ""
+    },
+    "schedule_bowtie2_quant_coverage_table_all": "schedule_short",
+    "schedule_bowtie2_quant_all": "schedule_short",
+    "schedule_bowtie2_quant_genes_histogram": {
+        "days": 0,
+        "hours": 6,
+        "minutes": 0,
+        "partition": "core",
+        "cores": "1",
+        "extra_parameters": ""
+    },
+    "schedule_bowtie2_quant_genes": "schedule_short",
+    "schedule_bowtie2_quant_genes_all": "schedule_short",
+    "schedule_prokka_extended_gff_to_bed": "schedule_one_core_medium",
+    "schedule_prokka_extended_merge_bed": "schedule_short",
+    "schedule_sample_merge_no_rmdup": "schedule_short",
+    "schedule_sample_merge": "schedule_short",
+    "schedule_bam_sort_index": "schedule_one_core_medium",
     "schedule_rpkm_per_orf": {
         "days": 0,
         "hours": 6,
@@ -110,6 +175,7 @@
     "schedule_megahit_coassemble_all": "schedule_short",
     "schedule_ray_assembly_all": "schedule_short",
     "schedule_megahit_assemble_sample_all": "schedule_short",
+    "schedule_megahit_coassemble_split": "schedule_one_core_medium",
     "schedule_prokka_extended_run": {
         "days": 1,
         "hours": 0,
@@ -134,5 +200,8 @@
         "cores": "4",
         "extra_parameters": ""
     },
-    "schedule_prokka_extended_all": "schedule_short"
+    "schedule_prokka_extended_all": "schedule_short",
+    "schedule_prokka_extended_rename_before_merge_annotated_sequences": "schedule_short",
+    "schedule_prokka_extended_merge_annotated_sequences": "schedule_short",
+    "schedule_prokka_extended_merge_annotated_sequences_all": "schedule_short"
 }

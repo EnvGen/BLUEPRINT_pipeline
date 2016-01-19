@@ -83,13 +83,6 @@ for read_file in glob.glob("samples/raw/*.fq.gz"):
                     config["cutadapt_rules"]["trim_params"][trim_params_name]["variables"] = {}
                 config["cutadapt_rules"]["trim_params"][trim_params_name]["variables"][read_name] = variables
 
-# Add megahit coassembly annotated sequences for merging before quantification
-config["prokka_extended_rules"]["merging_sample_sets"] = {}
-config["prokka_extended_rules"]["merging_sample_sets"]["megahit_coassembly"] = []
-for contigs_name, contigs_f in config["prokka_extended_rules"]["contigs"].items():
-    if contigs_name.startswith("megahit_coassembly"):
-        config["prokka_extended_rules"]["merging_sample_sets"]["megahit_coassembly"].append(contigs_name)
-
 for read_file in glob.glob("finished_reads/*.fq.gz"):
     read_basename = os.path.basename(read_file)
     read_name = read_basename.replace(".fq.gz", "")
@@ -101,20 +94,58 @@ for read_file in glob.glob("finished_reads/*.fq.gz"):
     else:
         config["megahit_rules"]["samples"][sample_name] = [read_file]
 
-for contigs_f in glob.glob("assembly/megahit_coassembly/default/parts/contigs.0.fasta"):
+for contigs_f in glob.glob("assembly/megahit_coassembly/default/parts/contigs.*.fasta"):
     part = contigs_f.split('.')[-2]
     config["prokka_extended_rules"]["contigs"]['megahit_coassembly.{}'.format(part)] = contigs_f
+    config["prokka_extended_rules"]["locustags"]['megahit_coassembly.{}'.format(part)] = "PROKKA_MOD_PART{}".format(part)
+
+# Add megahit coassembly annotated sequences for merging before quantification
+config["prokka_extended_rules"]["merging_sample_sets"] = {}
+config["prokka_extended_rules"]["merging_sample_sets"]["megahit_coassembly"] = []
+for contigs_name, contigs_f in config["prokka_extended_rules"]["contigs"].items():
+    if contigs_name.startswith("megahit_coassembly"):
+        config["prokka_extended_rules"]["merging_sample_sets"]["megahit_coassembly"].append(contigs_name)
+
+config["prokka_extended_rules"]["merging_sample_sets"]["megahit_coassembly"].sort(key= lambda x: int(x.split('.')[-1]))
+
+config["bowtie2_quant_rules"]["split_ref_sets"] = config["prokka_extended_rules"]["merging_sample_sets"]
+
+megahit_coassembly_genes = "annotation/prokka_extended/all_annotated_sequences/megahit_coassembly/PROKKA.ffn"
+megahit_coassembly_contigs = "assembly/megahit_coassembly/default/final.contigs.fa"
+
+config["bowtie2_quant_rules"]["split_ref_sets"] = config["prokka_extended_rules"]["merging_sample_sets"]
+
+config["bowtie2_quant_rules"]["units"] = {}
+config["bowtie2_quant_rules"]["samples"] = {}
+for i, sample_t in enumerate(config["megahit_rules"]["samples"].items()):
+    sample, units = sample_t
+    config["bowtie2_quant_rules"]["units"][sample] = units
+    config["bowtie2_quant_rules"]["samples"][sample] = [sample]
+
+config["bowtie2_quant_rules"]["references"] = {"megahit_coassembly_genes": megahit_coassembly_genes}
+config["bowtie2_quant_rules"]["references"]["megahit_coassembly_contigs"] = megahit_coassembly_contigs
+config["bowtie2_quant_rules"]["reference_for_ref_set"]["megahit_coassembly"] = "megahit_coassembly_contigs"
+
+config["bowtie2_rules"]["references"] = config["bowtie2_quant_rules"]["references"]
+config["bowtie2_rules"]["units"] = config["bowtie2_quant_rules"]["units"]
+config["bowtie2_rules"]["samples"] = config["bowtie2_quant_rules"]["samples"]
+config["bowtie2_rules"]["mapping_params"] = config["bowtie2_quant_rules"]["mapping_params"]
 
 WORKFLOW_DIR = "../../snakemake-workflows/"
 
-#include: os.path.join(WORKFLOW_DIR, "rules/mapping/bowtie2.rules")
-#include: os.path.join(WORKFLOW_DIR, "rules/mapping/samfiles.rules")
+include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/mapping/bowtie2.rules")
+include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/mapping/samtools.rules")
+include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/blast/rpsblast.rules")
 #include: os.path.join(WORKFLOW_DIR, "rules/quantification/rpkm.rules")
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/trimming/cutadapt.rules")
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/quality_control/fastqc.rules")
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/duplicate_removal/fastuniq.rules")
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/assembly/megahit.rules")
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/annotation/prokka.rules")
+include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/quantification/bowtie2.rules")
+
+# The index is large, need to use .bt2l indices
+ruleorder: bowtie2_map_large > bowtie2_map
 
 rule preprocess_all:
     input:
