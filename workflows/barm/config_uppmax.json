@@ -1,15 +1,34 @@
 {
     "bowtie2_rules": {
-        "load_env": "module load bioinfo-tools bowtie2/2.0.2 samtools/0.1.19"
+        "load_env": "module load bioinfo-tools bowtie2/2.2.6 samtools/1.1",
+        "platform": "Illumina",
+        "mapping_params": {
+            "default": ""
+        }
     },
-    "samfiles": {
-        "load_env": "module load bioinfo-tools samtools BEDTools/2.21.0"
+    "samtools_rules": {
+        "load_env": "module load bioinfo-tools samtools/1.3 BEDTools/2.21.0 picard/1.118",
+        "picard_jars": "/sw/apps/bioinfo/picard/1.118/milou",
+        "threads_for_sorting": "16"
     },
     "annotate_reference": {
         "load_env": "module load bioinfo-tools BioPerl/1.6.1_PERL5.10.1 blast/2.2.28+ hmmer/3.1b1-intel prodigal/2.60 gnuparallel"
     },
     "from_mapping": {
         "load_env": "module load bioinfo-tools samtools/0.1.19"
+    },
+    "rpsblast_rules": {
+        "load_env": "module load bioinfo-tools blast/2.2.29+ gnuparallel/20140222",
+        "rpsblast_params": {
+            "default-concoct": "-outfmt '6 qseqid sseqid evalue pident score qstart qend sstart send length slen' -max_target_seqs 1 -evalue 0.00001"
+        },
+        "databases": {
+            "cog": "/sw/data/uppnex/cdd/little_endian/Cog",
+            "pfam": "/sw/data/uppnex/cdd/little_endian/Pfam",
+            "tigr": "/sw/data/uppnex/cdd/little_endian/Tigr"
+        },
+        "parallel_params": "-N 16 --env PATH",
+        "query_aas": {}
     },
     "sickle": {
         "load_env": "module load bioinfo-tools sickle/1.210"
@@ -58,12 +77,6 @@
     },
     "fastuniq_rules": {
     },
-    "ray_rules": {
-        "assembly_params": {"default": ""},
-        "kmers": [21],
-        "load_env": "module load bioinfo-tools Ray/2.3.1-mpiio",
-        "mpi_cmd": "mpiexec -n 32"
-    },
     "megahit_rules": {
         "load_env": "",
         "assembly_params": {"default": ""},
@@ -80,12 +93,30 @@
         "cddid_all": "/proj/b2010008/nobackup/database/cddid_all.tbl",
         "get_prokka_annotation_script": "BLUEPRINT_pipeline/toolbox/scripts/extended_prokka/get.prokka.annotation.sh",
         "collate_annotations_script": "BLUEPRINT_pipeline/toolbox/scripts/extended_prokka/collate.annotations.py",
+        "gff_to_bed_script": "BLUEPRINT_pipeline/toolbox/scripts/extended_prokka/prokkagff2bed.sh", 
         "prokka_ops": "--metagenome",
         "EXTEND": {
             "gff": "BLUEPRINT_pipeline/toolbox/scripts/extended_prokka/extend_gff.py"
         },
         "contigs": {},
-        "threads": "4"
+        "threads": "4",
+        "locustags": {},
+        "rpsblast_parameter_set": "default-concoct"
     }, 
-    "python2": "~/miniconda/envs/BLUEPRINT_pipeline_2.7/bin/python2.7"
+    "python2": "~/miniconda/envs/BLUEPRINT_pipeline_2.7/bin/python2.7",
+    "bowtie2_quant_rules": {
+        "load_env": "source activate basic_sandbox && module load bioinfo-tools BEDTools/2.25.0",
+        "references": {},
+        "samples": {},
+        "units": {},
+        "reference_for_ref_set": {},
+        "mapping_params": {
+            "default": ""
+        },
+        "mapper": "bowtie2",
+        "scripts_dir": "~/repos/CONCOCT/scripts",
+        "rpkm_table_script": "toolbox/scripts/rpkm_table.py",
+        "coverage_for_genes_script": "toolbox/scripts/extended_prokka/get_gene_coverage.py",
+        "split_ref_sets": {}
+    }
 }
