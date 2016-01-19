@@ -30,7 +30,6 @@ else:
 
 config["fastqc_rules"]["reads"] = {}
 config["cutadapt_rules"]["reads"] = {}
-config["ray_rules"]["samples"] = {}
 config["megahit_rules"]["samples"] = {}
 
 with open("sample_indices.json") as si:
@@ -88,12 +87,6 @@ for read_file in glob.glob("finished_reads/*.fq.gz"):
     read_basename = os.path.basename(read_file)
     read_name = read_basename.replace(".fq.gz", "")
     sample_name = read_name.replace("_R1", "").replace("_R2", "")
-    
-    if sample_name in config["ray_rules"]["samples"]:
-        config["ray_rules"]["samples"][sample_name].append(read_file)
-        config["ray_rules"]["samples"][sample_name].sort()
-    else:
-        config["ray_rules"]["samples"][sample_name] = [read_file]
 
     if sample_name in config["megahit_rules"]["samples"]:
         config["megahit_rules"]["samples"][sample_name].append(read_file)
@@ -113,7 +106,6 @@ WORKFLOW_DIR = "../../snakemake-workflows/"
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/trimming/cutadapt.rules")
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/quality_control/fastqc.rules")
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/duplicate_removal/fastuniq.rules")
-include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/assembly/ray.rules")
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/assembly/megahit.rules")
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/annotation/prokka.rules")
 
