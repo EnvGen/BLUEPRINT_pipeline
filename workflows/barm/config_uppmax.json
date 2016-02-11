@@ -11,6 +11,22 @@
         "picard_jars": "/sw/apps/bioinfo/picard/1.118/milou",
         "threads_for_sorting": "16"
     },
+    "mapping_report_rules": {},
+    "concoct_rules": {
+        "load_env": "source activate  && module load bioinfo-tools MUMmer/3.23 # CONCOCT dev f4cb9fcb",
+        "mapper": "bowtie2",
+        "mapping_params": "default",
+        "concoct_params": {
+            "cutoff-1000-maxcluster-1000": "-c 1000 -l 1000"
+        },
+        "scripts_dir": "~/repos/CONCOCT/scripts"
+    },
+    "prodigal_rules": {
+        "load_env": "module load bioinfo-tools prodigal/2.60",
+        "prodigal_params": {
+            "default-meta": "-p meta"
+        }
+    },
     "annotate_reference": {
         "load_env": "module load bioinfo-tools BioPerl/1.6.1_PERL5.10.1 blast/2.2.28+ hmmer/3.1b1-intel prodigal/2.60 gnuparallel"
     },
@@ -20,7 +36,8 @@
     "rpsblast_rules": {
         "load_env": "module load bioinfo-tools blast/2.2.29+ gnuparallel/20140222",
         "rpsblast_params": {
-            "default-concoct": "-outfmt '6 qseqid sseqid evalue pident score qstart qend sstart send length slen' -max_target_seqs 1 -evalue 0.00001"
+            "default-concoct": "-outfmt '6 qseqid sseqid evalue pident score qstart qend sstart send length slen' -max_target_seqs 1 -evalue 0.00001",
+            "only-evalue": "-outfmt '6 qseqid sseqid evalue pident score qstart qend sstart send length slen' -evalue 0.00001"
         },
         "databases": {
             "cog": "/sw/data/uppnex/cdd/little_endian/Cog",
@@ -29,9 +46,6 @@
         },
         "parallel_params": "-N 16 --env PATH",
         "query_aas": {}
-    },
-    "sickle": {
-        "load_env": "module load bioinfo-tools sickle/1.210"
     },
     "fastqc_rules": {
         "load_env": "module load bioinfo-tools FastQC/0.11.2"
@@ -101,7 +115,17 @@
         "contigs": {},
         "threads": "4",
         "locustags": {},
-        "rpsblast_parameter_set": "default-concoct"
+        "include_evalue_for_tables": "true",
+        "rpsblast_parameter_set": {
+            "pfam": "only-evalue",
+            "cog": "default-concoct",
+            "tigr": "default-concoct"
+        },
+        "multiple_annotations_per_gene": {
+            "pfam": "true",
+            "cog": "false",
+            "tigr", "false"
+        }
     }, 
     "python2": "~/miniconda/envs/BLUEPRINT_pipeline_2.7/bin/python2.7",
     "bowtie2_quant_rules": {
@@ -115,8 +139,9 @@
         },
         "mapper": "bowtie2",
         "scripts_dir": "~/repos/CONCOCT/scripts",
-        "rpkm_table_script": "toolbox/scripts/rpkm_table.py",
-        "coverage_for_genes_script": "toolbox/scripts/extended_prokka/get_gene_coverage.py",
-        "split_ref_sets": {}
+        "rpkm_table_script": "BLUEPRINT_pipeline/toolbox/scripts/rpkm_table.py",
+        "coverage_for_genes_script": "BLUEPRINT_pipeline/toolbox/scripts/extended_prokka/get_gene_coverage.py",
+        "split_ref_sets": {},
+        "rpkm_annotations_table_script": "BLUEPRINT_pipeline/toolbox/scripts/rpkm_annotations_table.py"
     }
 }
