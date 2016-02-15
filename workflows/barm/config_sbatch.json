@@ -33,8 +33,8 @@
         "days": 1,
         "hours": 0,
         "minutes": 0,
-        "partition": "core",
-        "cores": "4",
+        "partition": "node",
+        "cores": "16",
         "extra_parameters": ""
     },
     "schedule_bowtie2_map_large": {
