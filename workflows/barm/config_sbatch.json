@@ -57,8 +57,8 @@
         "days": 1,
         "hours": 0,
         "minutes": 0,
-        "partition": "core",
-        "cores": "6",
+        "partition": "node",
+        "cores": "16",
         "extra_parameters": ""
     },
     "schedule_bedtools_coverage": {
@@ -92,7 +92,7 @@
         "hours": 6,
         "minutes": 0,
         "partition": "core",
-        "cores": "1",
+        "cores": "2",
         "extra_parameters": ""
     },
     "schedule_bowtie2_quant_genes": "schedule_short",
