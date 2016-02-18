@@ -92,7 +92,7 @@
         "hours": 6,
         "minutes": 0,
         "partition": "core",
-        "cores": "2",
+        "cores": "4",
         "extra_parameters": ""
     },
     "schedule_bowtie2_quant_genes": "schedule_short",
