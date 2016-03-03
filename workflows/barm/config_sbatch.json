@@ -93,7 +93,7 @@
         "minutes": 0,
         "partition": "node",
         "cores": "16",
-        "extra_parameters": ""
+        "extra_parameters": "-C mem512GB"
     },
     "schedule_bowtie2_quant_genes": "schedule_short",
     "schedule_bowtie2_quant_genes_all": "schedule_short",
