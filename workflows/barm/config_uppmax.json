@@ -150,7 +150,7 @@
             "databases": {
                 "nr": "/proj/b2010008/nobackup/database/nr/diamond/nr.db.dmnd"
             }
-        }
+        },
         "megan": {
             "tax_gi_file": "/proj/b2010008/nobackup/database/gi_taxid-March2015X.bin",
             "max_evalue": "0.000001",
