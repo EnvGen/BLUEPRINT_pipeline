@@ -143,5 +143,19 @@
         "coverage_for_genes_script": "BLUEPRINT_pipeline/toolbox/scripts/extended_prokka/get_gene_coverage.py",
         "split_ref_sets": {},
         "rpkm_annotations_table_script": "BLUEPRINT_pipeline/toolbox/scripts/rpkm_annotations_table.py"
+    },
+    "taxonomy_annotation": {
+        "load_env": "module load bioinfo-tools MEGAN5",
+        "diamond": {
+            "databases": {
+                "nr": "/proj/b2010008/nobackup/database/nr/diamond/nr.db.dmnd"
+            }
+        }
+        "megan": {
+            "tax_gi_file": "/proj/b2010008/nobackup/database/gi_taxid-March2015X.bin",
+            "max_evalue": "0.000001",
+            "license_file": "/proj/b2014214/src/MEGAN5-academic-license.txt"
+        }
     }
 }
+        
