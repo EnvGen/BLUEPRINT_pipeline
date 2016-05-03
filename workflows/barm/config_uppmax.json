@@ -124,7 +124,7 @@
         "multiple_annotations_per_gene": {
             "pfam": "true",
             "cog": "false",
-            "tigr", "false"
+            "tigr": "false"
         }
     }, 
     "python2": "~/miniconda/envs/BLUEPRINT_pipeline_2.7/bin/python2.7",
