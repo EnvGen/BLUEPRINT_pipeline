@@ -38,6 +38,9 @@ with open("sample_indices.json") as si:
 with open("analysis_per_sample.json") as aps:
     analysis_per_sample = json.load(aps)
 
+with open("sample_groups.json") as sg:
+    sample_groups = json.load(sg)
+
 for read_file in glob.glob("samples/raw/*.fq.gz"):
     read_basename = os.path.basename(read_file)
     read_mate_name = read_basename.replace(".fq.gz", "")
@@ -117,10 +120,30 @@ config["bowtie2_quant_rules"]["split_ref_sets"] = config["prokka_extended_rules"
 
 config["bowtie2_quant_rules"]["units"] = {}
 config["bowtie2_quant_rules"]["samples"] = {}
+config["bowtie2_quant_rules"]["sample_groups"] = sample_groups
+
 for i, sample_t in enumerate(config["megahit_rules"]["samples"].items()):
     sample, units = sample_t
     config["bowtie2_quant_rules"]["units"][sample] = units
     config["bowtie2_quant_rules"]["samples"][sample] = [sample]
+
+# Add reads for mapping that was not part of assembly
+config["bowtie2_quant_rules"]["rna_samples"] = []
+for read_file in glob.glob("only_for_mapping/finished_reads/rna/*.fq.gz"):
+    read_basename = os.path.basename(read_file)
+    read_name = read_basename.replace(".fq.gz", "")
+    sample_name = read_name.replace("_R1", "").replace("_R2", "")
+    
+    # RNA-samples have slightly different handling
+    config["bowtie2_quant_rules"]["rna_samples"].append(sample_name)
+    if sample_name in config["bowtie2_quant_rules"]["samples"]:
+        config["bowtie2_quant_rules"]["units"][sample_name].append(read_file)
+        config["bowtie2_quant_rules"]["units"][sample_name].sort()
+    else:
+        config["bowtie2_quant_rules"]["units"][sample_name] = [read_file]
+        config["bowtie2_quant_rules"]["samples"][sample_name] = [sample_name]
+
+    config["fastqc_rules"]["reads"]["finished_reads_only_for_mapping_rna_" + read_name] = read_file
 
 config["bowtie2_quant_rules"]["references"] = {"megahit_coassembly_genes": megahit_coassembly_genes}
 config["bowtie2_quant_rules"]["references"]["megahit_coassembly_contigs"] = megahit_coassembly_contigs
