@@ -236,5 +236,33 @@
         "partition": "core",
         "cores": 4,
         "extra_parameters": ""
-    }
+    },
+    "schedule_taxonomy_annotation_diamond_view_to_tab": "schedule_short",
+    "schedule_taxonomy_annotation_diamond_search": {
+        "days": 0,
+        "hours": 12,
+        "minutes": 0,
+        "partition": "node",
+        "cores": 16,
+        "extra_parameters": ""
+    },
+    "schedule_taxonomy_annotation_megan_taxid_and_path": {
+        "days": 0,
+        "hours": 2,
+        "minutes": 0,
+        "partition": "core",
+        "cores": 2,
+        "extra_parameters": ""
+    },
+    "schedule_taxonomy_annotation_megan_per_contig_lca": {
+        "days": 0,
+        "hours": 2,
+        "minutes": 0,
+        "partition": "core",
+        "cores": 1,
+        "extra_parameters": ""
+    },
+    "schedule_taxonomy_annotation_megan_merge_lca": "schedule_short",
+    "schedule_taxonomy_annotation_megan_merge": "schedule_short",
+    "schedule_taxonomy_annotation_megan_all": "schedule_short"
 }

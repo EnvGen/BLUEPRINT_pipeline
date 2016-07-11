@@ -144,8 +144,9 @@
         "split_ref_sets": {},
         "rpkm_annotations_table_script": "BLUEPRINT_pipeline/toolbox/scripts/rpkm_annotations_table.py"
     },
-    "taxonomy_annotation": {
-        "load_env": "module load bioinfo-tools MEGAN5",
+    "taxonomic_annotation": {
+        "load_env": "module load bioinfo-tools MEGAN/5.11.3",
+        "databases_to_use": ["nr"],
         "diamond": {
             "databases": {
                 "nr": "/proj/b2010008/nobackup/database/nr/diamond/nr.db.dmnd"
@@ -155,6 +156,13 @@
             "tax_gi_file": "/proj/b2010008/nobackup/database/gi_taxid-March2015X.bin",
             "max_evalue": "0.000001",
             "license_file": "/proj/b2014214/src/MEGAN5-academic-license.txt"
+        },
+        "lca_script": {
+            "load_env": "source activate BLUEPRINT_pipeline",
+            "lca_script": "BLUEPRINT_pipeline/toolbox/scripts/taxonomy_from_genes_to_contigs/lca_per_contig.py",
+            "ncbi_tree": "/proj/b2014214/nobackup/databases/megan/ncbi.tre",
+            "ncbi_map": "/proj/b2014214/nobackup/databases/megan/ncbi.map",
+            "nodes_dmp": "/proj/b2014214/nobackup/databases/megan/nodes.dmp"
         }
     }
 }

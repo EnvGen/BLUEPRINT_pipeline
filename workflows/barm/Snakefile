@@ -97,6 +97,7 @@ for read_file in glob.glob("finished_reads/*.fq.gz"):
     else:
         config["megahit_rules"]["samples"][sample_name] = [read_file]
 
+
 for contigs_f in glob.glob("assembly/megahit_coassembly/default/parts/contigs.*.fasta"):
     part = contigs_f.split('.')[-2]
     config["prokka_extended_rules"]["contigs"]['megahit_coassembly.{}'.format(part)] = contigs_f
@@ -153,6 +154,9 @@ config["bowtie2_rules"]["references"] = config["bowtie2_quant_rules"]["reference
 config["bowtie2_rules"]["units"] = config["bowtie2_quant_rules"]["units"]
 config["bowtie2_rules"]["samples"] = config["bowtie2_quant_rules"]["samples"]
 config["bowtie2_rules"]["mapping_params"] = config["bowtie2_quant_rules"]["mapping_params"]
+
+
+config["taxonomic_annotation"]["sample_sets"] = config['bowtie2_quant_rules']["split_ref_sets"]
 
 WORKFLOW_DIR = "../../snakemake-workflows/"
 
