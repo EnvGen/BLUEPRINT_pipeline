@@ -264,5 +264,13 @@
     },
     "schedule_taxonomy_annotation_megan_merge_lca": "schedule_short",
     "schedule_taxonomy_annotation_megan_merge": "schedule_short",
-    "schedule_taxonomy_annotation_megan_all": "schedule_short"
+    "schedule_taxonomy_annotation_megan_all": "schedule_short",
+    "schedule_bowtie2_quant_genes_htseq_counts": {
+        "days": 0,
+        "hours": 6,
+        "minutes": 0,
+        "partition": "core",
+        "cores": 3,
+        "extra_parameters": ""
+    }
 }
