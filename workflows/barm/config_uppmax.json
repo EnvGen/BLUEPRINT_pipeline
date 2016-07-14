@@ -108,7 +108,6 @@
         "get_prokka_annotation_script": "BLUEPRINT_pipeline/toolbox/scripts/extended_prokka/get.prokka.annotation.py",
         "collate_annotations_script": "BLUEPRINT_pipeline/toolbox/scripts/extended_prokka/collate.annotations.py",
         "gff_to_bed_script": "BLUEPRINT_pipeline/toolbox/scripts/extended_prokka/prokkagff2bed.sh", 
-        "count_units": ["rpkm", "tpm"],
         "prokka_ops": "--metagenome",
         "EXTEND": {
             "gff": "BLUEPRINT_pipeline/toolbox/scripts/extended_prokka/extend_gff.py"
@@ -134,6 +133,7 @@
         "references": {},
         "samples": {},
         "units": {},
+        "count_units": ["rpkm", "tpm"],
         "reference_for_ref_set": {},
         "mapping_params": {
             "default": ""
