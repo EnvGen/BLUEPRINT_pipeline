@@ -272,5 +272,6 @@
         "partition": "core",
         "cores": 3,
         "extra_parameters": ""
-    }
+    },
+    "schedule_bowtie2_tpm_gene_table": "schedule_short"
 }
