@@ -278,7 +278,7 @@
         "hours": 1,
         "minutes": 0,
         "partition": "core",
-        "cores": 2,
+        "cores": 4,
         "extra_parameters": ""
     }
 }
