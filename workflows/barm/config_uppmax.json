@@ -142,6 +142,7 @@
         "mapper": "bowtie2",
         "scripts_dir": "~/repos/CONCOCT/scripts",
         "rpkm_table_script": "BLUEPRINT_pipeline/toolbox/scripts/rpkm_table.py",
+        "tpm_table_script": "BLUEPRINT_pipeline/toolbox/scripts/tpm_table.py",
         "coverage_for_genes_script": "BLUEPRINT_pipeline/toolbox/scripts/extended_prokka/get_gene_coverage.py",
         "split_ref_sets": {},
         "rpkm_annotations_table_script": "BLUEPRINT_pipeline/toolbox/scripts/rpkm_annotations_table.py"
