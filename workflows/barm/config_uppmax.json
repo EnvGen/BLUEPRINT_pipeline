@@ -130,7 +130,7 @@
     "python2": "~/miniconda/envs/BLUEPRINT_pipeline_2.7/bin/python2.7",
     "bowtie2_quant_rules": {
         "load_env": "source activate basic_sandbox && module load bioinfo-tools BEDTools/2.25.0",
-        "load_htseq_env": "module load bioinfo-tools htseq/0.6.1"
+        "load_htseq_env": "module load bioinfo-tools htseq/0.6.1",
         "references": {},
         "samples": {},
         "units": {},
