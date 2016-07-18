@@ -273,5 +273,12 @@
         "cores": 3,
         "extra_parameters": ""
     },
-    "schedule_bowtie2_tpm_gene_table": "schedule_short"
+    "schedule_bowtie2_tpm_gene_table": {
+        "days": 0,
+        "hours": 1,
+        "minutes": 0,
+        "partition": "core",
+        "cores": 2,
+        "extra_parameters": ""
+    }
 }
