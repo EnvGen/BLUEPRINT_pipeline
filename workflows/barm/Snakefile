@@ -146,6 +146,18 @@ for read_file in glob.glob("only_for_mapping/finished_reads/rna/*.fq.gz"):
 
     config["fastqc_rules"]["reads"]["finished_reads_only_for_mapping_rna_" + read_name] = read_file
 
+for read_file in glob.glob("only_for_mapping/finished_reads/dna/*.fq.gz"):
+    read_basename = os.path.basename(read_file)
+    read_name = read_basename.replace(".fq.gz", "")
+    sample_name = read_name.replace("_R1", "").replace("_R2", "")
+    
+    if sample_name in config["bowtie2_quant_rules"]["samples"]:
+        config["bowtie2_quant_rules"]["units"][sample_name].append(read_file)
+        config["bowtie2_quant_rules"]["units"][sample_name].sort()
+    else:
+        config["bowtie2_quant_rules"]["units"][sample_name] = [read_file]
+        config["bowtie2_quant_rules"]["samples"][sample_name] = [sample_name]
+
 config["bowtie2_quant_rules"]["references"] = {"megahit_coassembly_genes": megahit_coassembly_genes}
 config["bowtie2_quant_rules"]["references"]["megahit_coassembly_contigs"] = megahit_coassembly_contigs
 config["bowtie2_quant_rules"]["reference_for_ref_set"]["megahit_coassembly"] = "megahit_coassembly_contigs"
