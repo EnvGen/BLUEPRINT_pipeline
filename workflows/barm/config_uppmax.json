@@ -134,7 +134,7 @@
         "references": {},
         "samples": {},
         "units": {},
-        "count_units": ["rpkm", "tpm"],
+        "count_units": ["rpkm", "tpm", "raw_counts"],
         "reference_for_ref_set": {},
         "mapping_params": {
             "default": ""
