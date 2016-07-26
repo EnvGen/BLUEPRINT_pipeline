@@ -280,5 +280,13 @@
         "partition": "core",
         "cores": 4,
         "extra_parameters": ""
+    },
+    "schedule_bowtie2_raw_counts_gene_table": {
+        "days": 0,
+        "hours": 1,
+        "minutes": 0,
+        "partition": "core",
+        "cores": 4,
+        "extra_parameters": ""
     }
 }
