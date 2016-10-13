@@ -288,5 +288,31 @@
         "partition": "core",
         "cores": 4,
         "extra_parameters": ""
+    },
+    "schedule_internal_standards_all": "schedule_short",
+    "schedule_internal_standards_bam_to_fastq": {
+        "days": 0,
+        "hours": 1,
+        "minutes": 0,
+        "partition": "core",
+        "cores": 1,
+        "extra_parameters": ""
+    },
+    "schedule_internal_standards_bamtools_split": {
+        "days": 0,
+        "hours": 1,
+        "minutes": 0,
+        "partition": "core",
+        "cores": 1,
+        "extra_parameters": ""
+    },
+    "schedule_internal_standards_link_mapping": "schedule_short",
+    "schedule_internal_standards_sync_bam": {
+        "days": 0,
+        "hours": 1,
+        "minutes": 0,
+        "partition": "core",
+        "cores": 1,
+        "extra_parameters": ""
     }
 }

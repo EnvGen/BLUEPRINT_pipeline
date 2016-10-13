@@ -168,6 +168,12 @@
             "ncbi_map": "/proj/b2014214/nobackup/databases/megan/ncbi.map",
             "nodes_dmp": "/proj/b2014214/nobackup/databases/megan/nodes.dmp"
         }
+    },
+    "internal_standards": {
+        "load_env": "module load bioinfo-tools bamtools/2.3.0",
+        "mapping_params": "default",
+        "sample_to_references": {},
+        "samples": []
     }
 }
         
