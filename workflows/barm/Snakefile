@@ -103,6 +103,8 @@ for contigs_f in glob.glob("assembly/megahit_coassembly/default/parts/contigs.*.
     config["prokka_extended_rules"]["contigs"]['megahit_coassembly.{}'.format(part)] = contigs_f
     config["prokka_extended_rules"]["locustags"]['megahit_coassembly.{}'.format(part)] = "PROKKA_MOD_PART{}".format(part)
 
+config["prodigal_rules"]["assemblies"] = config["prokka_extended_rules"]["contigs"]
+
 # Add megahit coassembly annotated sequences for merging before quantification
 config["prokka_extended_rules"]["merging_sample_sets"] = {}
 config["prokka_extended_rules"]["merging_sample_sets"]["megahit_coassembly"] = []
