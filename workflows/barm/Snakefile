@@ -205,6 +205,7 @@ config["taxonomic_annotation"]["sample_sets"] = config['bowtie2_quant_rules']["s
 WORKFLOW_DIR = "../../snakemake-workflows/"
 
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/mapping/bowtie2.rules")
+include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/annotation/prodigal.rules")
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/mapping/samtools.rules")
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/blast/rpsblast.rules")
 #include: os.path.join(WORKFLOW_DIR, "rules/quantification/rpkm.rules")
