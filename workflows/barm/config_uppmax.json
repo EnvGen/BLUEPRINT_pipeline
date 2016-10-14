@@ -108,6 +108,8 @@
         "get_prokka_annotation_script": "BLUEPRINT_pipeline/toolbox/scripts/extended_prokka/get.prokka.annotation.py",
         "collate_annotations_script": "BLUEPRINT_pipeline/toolbox/scripts/extended_prokka/collate.annotations.py",
         "gff_to_bed_script": "BLUEPRINT_pipeline/toolbox/scripts/extended_prokka/prokkagff2bed.sh", 
+        "cog_categories_script": "toolbox/scripts/extended_prokka/cog_categories.py",
+        "cog_categories_data": "toolbox/scripts/extended_prokka/data/cogs.csv",
         "prokka_ops": "--metagenome",
         "EXTEND": {
             "gff": "BLUEPRINT_pipeline/toolbox/scripts/extended_prokka/extend_gff.py"
