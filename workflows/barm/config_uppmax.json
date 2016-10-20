@@ -177,7 +177,7 @@
         "sample_to_references": {},
         "samples": []
     },
-    "eggnog_rules": 
+    "eggnog_rules": {
         "load_env": "module load gnuparallel bioinfo-tools hmmer/3.1b2",
         "egg_nog_db": "/proj/b2014214/nobackup/databases/NOG/EggNOG.hmmer",
         "hmmscan_params": "--noali -E 0.00001",
