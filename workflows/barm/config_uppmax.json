@@ -180,8 +180,7 @@
     "eggnog_rules": {
         "load_env": "module load gnuparallel bioinfo-tools hmmer/3.1b2",
         "db_path": "/proj/b2014214/nobackup/databases/NOG/EggNOG.hmmer",
-        "hmmscan_params": "--noali -E 0.00001",
-        "gnuparallel_params": "-j 16 --block 1m"
+        "hmmsearch_params": "--noali --cpu 2"
     }
 }
         
