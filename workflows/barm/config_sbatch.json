@@ -317,11 +317,11 @@
     },
     "schedule_prodigal_run": "schedule_one_core_medium",
     "schedule_run_eggnog": {
-        "days": 8,
+        "days": 10,
         "hours": 0,
         "minutes": 0,
-        "partition": "node",
-        "cores": 16,
+        "partition": "core",
+        "cores": 2,
         "extra_parameters": "--mail-type=END --mail-user=johannes.alneberg@scilifelab.se"
     }
 }
