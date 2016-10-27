@@ -317,7 +317,7 @@
     },
     "schedule_prodigal_run": "schedule_one_core_medium",
     "schedule_run_eggnog": {
-        "days": 10,
+        "days": 4,
         "hours": 0,
         "minutes": 0,
         "partition": "core",
