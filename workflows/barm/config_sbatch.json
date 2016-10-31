@@ -323,5 +323,21 @@
         "partition": "core",
         "cores": 2,
         "extra_parameters": "--mail-type=END --mail-user=johannes.alneberg@scilifelab.se"
+    },
+    "schedule_eggnog_filter_output": {
+        "days": 0,
+        "hours": 1,
+        "minutes": 0,
+        "partition": "core",
+        "cores": 1,
+        "extra_parameters": ""
+    },
+    "schedule_eggnog_collate_annotations": {
+        "days": 0,
+        "hours": 12,
+        "minutes": 0,
+        "partition": "core",
+        "cores": 1,
+        "extra_parameters": "--mail-type=END --mail-user=johannes.alneberg@scilifelab.se"
     }
 }
