@@ -355,5 +355,13 @@
         "partition": "core",
         "cores": 1,
         "extra_parameters": "--mail-type=END --mail-user=johannes.alneberg@scilifelab.se"
+    },
+    "schedule_run_dbcan": {
+        "days": 1,
+        "hours": 0,
+        "minutes": 0,
+        "partition": "core",
+        "cores": 2,
+        "extra_parameters": "--mail-type=END --mail-user=johannes.alneberg@scilifelab.se"
     }
 }

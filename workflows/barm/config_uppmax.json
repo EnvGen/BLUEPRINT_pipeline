@@ -183,5 +183,12 @@
         "hmmsearch_params": "--noali --cpu 2",
         "max_eval_first_filtering": "0.0001",
         "keep_top_score_script": "BLUEPRINT_pipeline/toolbox/scripts/keep_top_score.py"
+    },
+    "dbcan_rules": {
+        "load_env": "module load gnuparallel bioinfo-tools hmmer/3.1b2 && source activate basic_sandbox",
+        "db_path": "/proj/b2014214/nobackup/databases/dbCAN/dbCAN-fam-HMMs.txt.v5",
+        "hmmscan_params": "--noali --cpu 2",
+        "max_eval_first_filtering": "0.0001",
+        "keep_top_score_script": "BLUEPRINT_pipeline/toolbox/scripts/keep_top_score.py"
     }
 }
