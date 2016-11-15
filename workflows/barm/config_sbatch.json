@@ -379,5 +379,22 @@
         "partition": "core",
         "cores": 1,
         "extra_parameters": "--mail-type=END --mail-user=johannes.alneberg@scilifelab.se"
+    },
+    "schedule_run_pfam": {
+        "days": 4,
+        "hours": 0,
+        "minutes": 0,
+        "partition": "core",
+        "cores": 2,
+        "extra_parameters": ""
+    },
+    "schedule_pfam_sort_on_name": "schedule_short",
+    "schedule_pfam_collate_annotations": {
+        "days": 0,
+        "hours": 0,
+        "minutes": 15,
+        "partition": "core",
+        "cores": 1,
+        "extra_parameters": "--mail-type=END --mail-user=johannes.alneberg@scilifelab.se"
     }
 }
