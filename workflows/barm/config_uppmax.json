@@ -191,5 +191,9 @@
         "max_eval_first_filtering": "0.0001",
         "dbcan_parser_script": "BLUEPRINT_pipeline/toolbox/third_party_scripts/dbcan/hmmscan-parser.sh",
         "dbcan_strict_filtering_script": "BLUEPRINT_pipeline/toolbox/scripts/hmmer_filtering/dbcan_strict_filtering.py"
+    },
+    "pfam_rules": {
+        "load_env": "module load gnuparallel bioinfo-tools pfam_scan/1.5 && source activate basic_sandbox",
+        "db_path": "/proj/b2014214/nobackup/databases/Pfam/30.0"
     }
 }
