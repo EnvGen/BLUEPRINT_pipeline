@@ -22,7 +22,9 @@
         "scripts_dir": "~/repos/CONCOCT/scripts"
     },
     "prodigal_rules": {
-        "load_env": "module load bioinfo-tools prodigal/2.6.3",
+        "load_env": "module load bioinfo-tools prodigal/2.6.3 && source activate basic_sandbox",
+        "length_script": "BLUEPRINT_pipeline/toolbox/scripts/fasta_lengths.py",
+        "dbs": ["pfam", "dbCAN", "EggNOG"],
         "prodigal_params": {
             "default-meta": "-p meta"
         }
@@ -141,6 +143,7 @@
         "mapping_params": {
             "default": ""
         },
+        "prodigal_parameters_used": "default-meta",
         "mapper": "bowtie2",
         "scripts_dir": "~/repos/CONCOCT/scripts",
         "rpkm_table_script": "BLUEPRINT_pipeline/toolbox/scripts/rpkm_table.py",
