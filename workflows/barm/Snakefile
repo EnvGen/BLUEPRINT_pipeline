@@ -114,6 +114,7 @@ for contigs_name, contigs_f in config["prokka_extended_rules"]["contigs"].items(
 
 config["prokka_extended_rules"]["merging_sample_sets"]["megahit_coassembly"].sort(key= lambda x: int(x.split('.')[-1]))
 
+config["prodigal_rules"]["merging_sample_sets"] = config["prokka_extended_rules"]["merging_sample_sets"]
 config["bowtie2_quant_rules"]["split_ref_sets"] = config["prokka_extended_rules"]["merging_sample_sets"]
 
 megahit_coassembly_genes = "annotation/prokka_extended/all_annotated_sequences/megahit_coassembly/PROKKA.ffn"
