@@ -412,5 +412,8 @@
         "partition": "core",
         "cores": 1,
         "extra_parameters": "--mail-type=END --mail-user=johannes.alneberg@scilifelab.se"
-    }
+    },
+    "schedule_dbcan_standardize_collate_annotations": "schedule_short",
+    "schedule_eggnog_standardize_collate_annotations": "schedule_short",
+    "schedule_pfam_standardize_collate_annotations": "schedule_short"
 }

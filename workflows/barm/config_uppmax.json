@@ -29,6 +29,9 @@
             "default-meta": "-p meta"
         }
     },
+    "annotation_rules": {
+        "gene_prediction": "prodigal_default-meta"
+    },
     "annotate_reference": {
         "load_env": "module load bioinfo-tools BioPerl/1.6.1_PERL5.10.1 blast/2.2.28+ hmmer/3.1b1-intel prodigal/2.6.3 gnuparallel"
     },
@@ -135,6 +138,7 @@
     "bowtie2_quant_rules": {
         "load_env": "source activate basic_sandbox && module load bioinfo-tools BEDTools/2.25.0",
         "load_htseq_env": "module load bioinfo-tools htseq/0.6.1",
+        "gene_prediction": "prodigal_default-meta",
         "references": {},
         "samples": {},
         "units": {},
