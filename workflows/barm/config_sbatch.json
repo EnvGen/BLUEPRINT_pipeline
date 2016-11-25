@@ -101,6 +101,7 @@
     "schedule_prokka_extended_merge_bed": "schedule_short",
     "schedule_prodigal_merge_all_gff2": "schedule_short",
     "schedule_prodigal_gff_to_gff2": "schedule_short",
+    "schedule_prodigal_gene_lengths": "schedule_short",
     "schedule_sample_merge_no_rmdup": "schedule_short",
     "schedule_sample_merge": "schedule_short",
     "schedule_bam_sort_index": "schedule_one_core_medium",
