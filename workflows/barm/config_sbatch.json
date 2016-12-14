@@ -418,5 +418,6 @@
     },
     "schedule_dbcan_standardize_collate_annotations": "schedule_short",
     "schedule_eggnog_standardize_collate_annotations": "schedule_short",
-    "schedule_pfam_standardize_collate_annotations": "schedule_short"
+    "schedule_pfam_standardize_collate_annotations": "schedule_short",
+    "schedule_prodigal_gff_to_bed": "schedule_one_core_medium"
 }
