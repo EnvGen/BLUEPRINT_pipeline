@@ -158,11 +158,11 @@
         "rpkm_annotations_table_script": "BLUEPRINT_pipeline/toolbox/scripts/rpkm_annotations_table.py"
     },
     "taxonomic_annotation": {
-        "load_env": "module load bioinfo-tools MEGAN/5.11.3",
+        "load_env": "module load bioinfo-tools diamond/0.8.26 MEGAN/5.11.3",
         "databases_to_use": ["nr"],
         "diamond": {
             "databases": {
-                "nr": "/proj/b2010008/nobackup/database/nr/diamond/nr.db.dmnd"
+                "nr": "/sw/data/uppnex/diamond_databases/Blast/20161202/nr.dmnd"
             }
         },
         "megan": {
