@@ -161,6 +161,7 @@
         "load_env": "module load bioinfo-tools diamond/0.8.26 MEGAN/5.11.3",
         "databases_to_use": ["nr"],
         "diamond": {
+            "load_env": "module load bioinfo-tools diamond/0.8.26",
             "databases": {
                 "nr": "/sw/data/uppnex/diamond_databases/Blast/20161202/nr.dmnd"
             }
