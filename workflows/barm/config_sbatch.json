@@ -141,8 +141,8 @@
         "days": 0,
         "hours": 6,
         "minutes": 0,
-        "partition": "node",
-        "cores": 8,
+        "partition": "core",
+        "cores": 3,
         "extra_parameters": ""
     },
     "schedule_fastqc_all": "schedule_short",
