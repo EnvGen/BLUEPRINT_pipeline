@@ -1,4 +1,5 @@
 {
+    "global_tmp_dir": "$SNIC_TMP",
     "bowtie2_rules": {
         "load_env": "module load bioinfo-tools bowtie2/2.2.6 samtools/1.1",
         "platform": "Illumina",
