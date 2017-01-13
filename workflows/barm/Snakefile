@@ -208,6 +208,7 @@ WORKFLOW_DIR = "../../snakemake-workflows/"
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/mapping/bowtie2.rules")
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/annotation/prodigal.rules")
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/annotation/eggnog.rules")
+include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/annotation/ec.rules")
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/annotation/dbcan.rules")
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/annotation/pfam.rules")
 include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/mapping/samtools.rules")

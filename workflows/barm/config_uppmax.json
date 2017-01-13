@@ -25,7 +25,7 @@
     "prodigal_rules": {
         "load_env": "module load bioinfo-tools prodigal/2.6.3 && source activate basic_sandbox",
         "length_script": "BLUEPRINT_pipeline/toolbox/scripts/fasta_lengths.py",
-        "dbs": ["pfam", "dbCAN", "EggNOG"],
+        "dbs": ["pfam", "dbCAN", "EggNOG", "EC"],
         "prodigal_params": {
             "default-meta": "-p meta"
         }
@@ -204,5 +204,8 @@
     "pfam_rules": {
         "load_env": "module load gnuparallel bioinfo-tools pfam_scan/1.5 && source activate basic_sandbox",
         "db_path": "/proj/b2014214/nobackup/databases/Pfam/30.0"
+    },
+    "ec_rules": {
+        "assign_ec_from_nog_script": "BLUEPRINT_pipeline/toolbox/scripts/assign_ec_from_nog.py"
     }
 }
