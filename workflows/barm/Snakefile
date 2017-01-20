@@ -128,8 +128,14 @@ config["bowtie2_quant_rules"]["sample_groups"] = sample_groups
 
 for i, sample_t in enumerate(config["megahit_rules"]["samples"].items()):
     sample, units = sample_t
-    config["bowtie2_quant_rules"]["units"][sample] = units
-    config["bowtie2_quant_rules"]["samples"][sample] = [sample]
+    if sample.startswith("P1994"):
+        # I didn't realize the P1994 samples had internal standards in them
+        # therefore, there are different fastq files for the assembly 
+        # (don't want to redo the assembly at this point) and the mapping.
+        pass
+    else:
+        config["bowtie2_quant_rules"]["units"][sample] = units
+        config["bowtie2_quant_rules"]["samples"][sample] = [sample]
 
 # Add reads for mapping that was not part of assembly
 config["bowtie2_quant_rules"]["rna_samples"] = []
@@ -225,6 +231,9 @@ include: os.path.join(WORKFLOW_DIR, "bio/ngs/rules/quality_control/internal_stan
 
 # The index is large, need to use .bt2l indices
 ruleorder: bowtie2_map_large > bowtie2_map
+
+## Enable this when internal_standards mapping is done
+#ruleorder: bowtie2_map > bowtie2_map_large
 
 rule preprocess_all:
     input:
